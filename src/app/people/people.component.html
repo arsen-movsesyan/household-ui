@@ -1,0 +1,47 @@
+<div class="mt-4">
+  <app-spinner message="Getting WorkOrder" (dismiss)="showMainSpinner=false" *ngIf="showMainSpinner"></app-spinner>
+</div>
+
+<div class="card" *ngIf="!showMainSpinner">
+  <div class="card-header text-white bg-success d-flex justify-content-between">
+    <h5>People</h5>
+  </div>
+
+  <div class="card-body">
+
+    <table class="table table-borderless table-striped">
+
+      <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>D.O.B.</th>
+        <th>S.S.N.</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let person of people">
+        <td>{{person.first_name}}</td>
+        <td>{{person.last_name}}</td>
+        <td>
+          <a [href]="'mailto:' + person.email">
+            <app-email-display [email]="person.email"></app-email-display>
+          </a>
+        </td>
+        <td>
+          <a [href]="'tel:' + person.phone">
+            {{person.phone | phone}}
+          </a>
+        </td>
+        <td>{{person.dob | date: 'mediumDate'}}</td>
+        <td>Show</td>
+      </tr>
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

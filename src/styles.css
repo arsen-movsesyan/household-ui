@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+html, body {
+  height: 100%;
+}
+
+.pointer-link {
+  cursor: pointer;
+}
+
+.dimmedText {
+  color: dimgrey;
+  font-size: 0.8em;
+}
+
+.customClass span {
+  color: white;
+}
