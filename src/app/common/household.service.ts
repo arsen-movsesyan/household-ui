@@ -24,8 +24,8 @@ export class HouseholdService {
     return this.httpClient.post<PersonModel>(peopleUrl, newPerson);
   }
 
-  editPerson(updatedPerson: PersonModel) {
-    const url = peopleUrl + updatedPerson.id.toString() + '/';
+  editPerson(id: number, updatedPerson: PersonModel) {
+    const url = peopleUrl + id.toString() + '/';
     return this.httpClient.put<PersonModel>(url, updatedPerson);
   }
 
@@ -38,11 +38,19 @@ export class HouseholdService {
   }
 
   getVehicle(id: string) {
-    return this.httpClient.get<VehicleModel[]>(vehicleUrl + id + '/');
+    return this.httpClient.get<VehicleModel>(vehicleUrl + id + '/');
   }
 
   addVehicle(newVehicle: VehicleModel) {
     return this.httpClient.post<VehicleModel>(vehicleUrl, newVehicle);
+  }
+
+  editVehicle(id: number, editedVehicle: VehicleModel) {
+    return this.httpClient.patch<VehicleModel>(vehicleUrl + id.toString() + '/', editedVehicle);
+  }
+
+  removeVehicle(id: number) {
+    return this.httpClient.delete(vehicleUrl + id.toString() + '/');
   }
 
   getAllAddresses() {
@@ -53,7 +61,7 @@ export class HouseholdService {
     return this.httpClient.post<AddressModel>(createAddressUrl, newAddress);
   }
 
-  editAddress( id: number, updatedAddress: AddressModel) {
+  editAddress(id: number, updatedAddress: AddressModel) {
     return this.httpClient.patch<AddressModel>(addressUrl + id.toString() + '/', updatedAddress);
   }
 

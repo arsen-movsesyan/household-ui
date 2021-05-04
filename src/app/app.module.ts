@@ -19,6 +19,8 @@ import {ReactiveFormsModule} from '@angular/forms';
 import { AddressesComponent } from './addresses/addresses.component';
 import { AddEditPersonComponent } from './people/addedit-person/addedit-person.component';
 import {TextMaskModule} from 'angular2-text-mask';
+import { VehicleComponent } from './vehicles/vehicle/vehicle.component';
+import { AddEditVehicleComponent } from './vehicles/addedit-vehicle/addedit-vehicle.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import {TextMaskModule} from 'angular2-text-mask';
     VehiclesComponent,
     AddressesComponent,
     AddEditPersonComponent,
+    VehicleComponent,
+    AddEditVehicleComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +50,6 @@ import {TextMaskModule} from 'angular2-text-mask';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [AddEditPersonComponent],
+  entryComponents: [AddEditPersonComponent, AddEditVehicleComponent],
 })
 export class AppModule { }
