@@ -18,14 +18,25 @@
         <th>From</th>
         <th>To</th>
         <th>Comment</th>
+        <th>&nbsp;</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let address of addresses">
-        <td>{{address.formatted_address}}</td>
+        <td>{{address.formattedAddress}}</td>
         <td>{{address.period_start|date:'mediumDate'}}</td>
-        <td>{{address.period_end|date:'mediumDate'}}</td>
+        <td>{{!!address.period_end ? (address.period_end|date:'mediumDate') : 'Present'}}</td>
         <td>{{address.comment}}</td>
+        <td>
+          <div class="btn-group btn-group-sm">
+            <button type="button" class="btn btn-sm btn-outline-primary" (click)="openEditAddressModal(address.id)">
+              <fa-icon [icon]="editIcon"></fa-icon>
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-danger" (click)="openDeleteAddressModal(address.id)">
+              <fa-icon [icon]="trashIcon"></fa-icon>
+            </button>
+          </div>
+        </td>
       </tr>
       </tbody>
     </table>
@@ -34,14 +45,34 @@
 </div>
 
 
-<ng-template #addAddressModal let-modal>
+<ng-template #addressDeleteModal let-modal>
+  <div class="modal-header bg-danger">
+    <h5 class="modal-title">Delete Address</h5>
+    <button type="button" class="close" (click)="closeDeleteAddressModal()">
+      <span>&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>WARNING!</p>
+    <p>You are going to permanently delete address</p>
+    <p>{{deletedAddress.formattedAddress}}</p>
+    <p>This action cannot be undone!</p>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-danger" (click)="deleteAddress()">Delete</button>&nbsp;
+    <button type="button" class="btn btn-secondary" (click)="closeDeleteAddressModal()" ngbAutofocus>Cancel</button>
+  </div>
+</ng-template>
+
+
+<ng-template #addressAddEditModal let-modal>
   <div class="modal-header">
-    <h5 class="modal-title">Request Part</h5>
+    <h5 class="modal-title">{{addressEditMode ? 'Edit' : 'Add New'}} Address</h5>
     <button type="button" class="close" (click)="closeAddressModal()">
       <span>&times;</span>
     </button>
   </div>
-  <form [formGroup]="addAddressForm" (ngSubmit)="addAddress()">
+  <form [formGroup]="addEditAddressForm" (ngSubmit)="addressEditMode ? editAddress() : addAddress()">
     <div class="modal-body">
 
       <div class="form-group">
@@ -49,10 +80,10 @@
         <div class="form-inline">
           <div class="input-group">
 
-            <input type="text" class="form-control" formControlName="period_start" ngbDatepicker #dp="ngbDatepicker" placeholder="yyyy-mm-dd">
+            <input type="text" class="form-control" formControlName="period_start" ngbDatepicker #dps="ngbDatepicker" placeholder="yyyy-mm-dd">
 
             <div class="input-group-append">
-              <button class="btn btn-outline-secondary" (click)="dp.toggle()" type="button">
+              <button class="btn btn-outline-secondary" (click)="dps.toggle()" type="button">
                 <fa-icon [icon]="calendarIcon"></fa-icon>
               </button>
             </div>
@@ -66,10 +97,10 @@
         <div class="form-inline">
           <div class="input-group">
 
-            <input type="text" class="form-control" formControlName="period_end" ngbDatepicker #dp="ngbDatepicker" placeholder="yyyy-mm-dd">
+            <input type="text" class="form-control" formControlName="period_end" ngbDatepicker #dpe="ngbDatepicker" placeholder="yyyy-mm-dd">
 
             <div class="input-group-append">
-              <button class="btn btn-outline-secondary" (click)="dp.toggle()" type="button">
+              <button class="btn btn-outline-secondary" (click)="dpe.toggle()" type="button">
                 <fa-icon [icon]="calendarIcon"></fa-icon>
               </button>
             </div>
@@ -78,27 +109,27 @@
 
       </div>
 
-      <div class="form-group">
+      <div class="form-group" *ngIf="!addressEditMode">
         <label>Address *</label>
         <input type="text" class="form-control" formControlName="address_line1">
       </div>
 
-      <div class="form-group">
+      <div class="form-group" *ngIf="!addressEditMode">
         <label>Address (continuation)</label>
         <input type="text" class="form-control" formControlName="address_line2">
       </div>
 
-      <div class="form-group">
+      <div class="form-group" *ngIf="!addressEditMode">
         <label>Apartment/Suite</label>
         <input type="text" class="form-control" formControlName="apt_suite">
       </div>
 
-      <div class="form-group">
+      <div class="form-group" *ngIf="!addressEditMode">
         <label>City *</label>
         <input type="text" class="form-control" formControlName="city">
       </div>
 
-      <div class="form-group">
+      <div class="form-group" *ngIf="!addressEditMode">
         <label>State/Province *</label>
         <select class="form-control" formControlName="state">
           <option>Select State</option>
@@ -106,7 +137,7 @@
         </select>
       </div>
 
-      <div class="form-group">
+      <div class="form-group" *ngIf="!addressEditMode">
         <label>Zip Code *</label>
         <input type="text" class="form-control" formControlName="zip_code">
       </div>
@@ -116,11 +147,10 @@
         <textarea class="form-control" formControlName="comment"></textarea>
       </div>
 
-
     </div>
 
     <div class="modal-footer">
-      <button type="submit" class="btn btn-primary" ngbAutofocus [disabled]="addAddressForm.invalid">Add</button>&nbsp;
+      <button type="submit" class="btn btn-primary" ngbAutofocus [disabled]="addEditAddressForm.invalid">{{addressEditMode ? 'Update' : 'Add'}}</button>&nbsp;
       <button type="button" class="btn btn-secondary" (click)="closeAddressModal()">Cancel</button>
     </div>
   </form>

@@ -3,9 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {PersonModel} from '../../models/person.model';
 import {faCalendar} from '@fortawesome/free-regular-svg-icons/faCalendar';
-// import { DateTime } from 'luxon';
-import {parseISO, getDate, getMonth, getYear} from 'date-fns';
-import {cleanPhoneSsnMaskedValue} from '../../common/utils';
+import {cleanPhoneSsnMaskedValue, formatDateToNgbDateStr, getStructFromString} from '../../common/utils';
 
 
 @Component({
@@ -37,11 +35,16 @@ export class AddEditPersonComponent implements OnInit {
     };
   }
 
+  get editMode() {
+    return !!this.person;
+  }
+
   submit() {
-    const value = this.addPersonForm.value as PersonModel;
+    const value = this.addPersonForm.value;
     value.phone = cleanPhoneSsnMaskedValue(value.phone);
     value.ssn = cleanPhoneSsnMaskedValue(value.ssn);
-    this.activeModal.close(value);
+    value.dob = formatDateToNgbDateStr(value.dob);
+    this.activeModal.close(value as PersonModel);
   }
 
   closeModal() {
@@ -50,16 +53,16 @@ export class AddEditPersonComponent implements OnInit {
 
   private initPersonForm() {
     this.addPersonForm = new FormGroup({
-      first_name: new FormControl(!!this.person ? this.person.first_name : null, [Validators.required]),
-      last_name: new FormControl(!!this.person ? this.person.last_name : null, [Validators.required]),
-      email: new FormControl(!!this.person ? this.person.email : null, [Validators.required, Validators.email]),
-      phone: new FormControl(!!this.person ? this.person.phone : null, [Validators.required]),
+      first_name: new FormControl(this.editMode ? this.person.first_name : null, [Validators.required]),
+      last_name: new FormControl(this.editMode ? this.person.last_name : null, [Validators.required]),
+      email: new FormControl(this.editMode ? this.person.email : null, [Validators.required, Validators.email]),
+      phone: new FormControl(this.editMode ? this.person.phone : null, [Validators.required]),
       dob: new FormControl(null, [Validators.required]),
-      ssn: new FormControl(!!this.person ? this.person.ssn : null, [Validators.required])
+      ssn: new FormControl(this.editMode ? this.person.ssn : null, [Validators.required])
     });
-    if (!!this.person) {
-      const dob = parseISO(this.person.dob);
-      this.addPersonForm.setControl('dob', new FormControl({day: getDate(dob), month: getMonth(dob), year: getYear(dob)}));
+    if (this.editMode) {
+      const dob = getStructFromString(this.person.dob);
+      this.addPersonForm.setControl('dob', new FormControl(dob));
     }
   }
 }

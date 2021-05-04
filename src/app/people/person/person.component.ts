@@ -39,6 +39,7 @@ export class PersonComponent implements OnInit {
     modalRef.componentInstance.person = this.person;
     modalRef.result.then((updatedPerson: PersonModel) => {
       if (!!updatedPerson) {
+        updatedPerson.id = this.person.id;
         this.householdService.editPerson(updatedPerson)
           .subscribe((savedPerson: PersonModel) => {
             this.person = savedPerson;

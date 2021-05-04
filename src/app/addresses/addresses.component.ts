@@ -2,10 +2,16 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {AddressModel} from '../models/address.model';
 import {HouseholdService} from '../common/household.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {NgbActiveModal, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbActiveModal,
+  NgbModal,
+  NgbModalRef
+} from '@ng-bootstrap/ng-bootstrap';
 import {StateModel} from '../models/state.model';
-import {faCalendar} from '@fortawesome/free-regular-svg-icons/faCalendar';
+// import {faCalendar} from '@fortawesome/free-regular-svg-icons/faCalendar';
+import {faPen, faCalendar, faTrash} from '@fortawesome/free-solid-svg-icons';
 import {CreateAddressModel} from '../models/create-address.model';
+import {formatAddress, formatDateToNgbDateStr, getStructFromString} from '../common/utils';
 
 @Component({
   selector: 'app-addresses',
@@ -13,14 +19,22 @@ import {CreateAddressModel} from '../models/create-address.model';
   styleUrls: ['./addresses.component.css']
 })
 export class AddressesComponent implements OnInit {
-  @ViewChild('addAddressModal', {static: false}) addAddressModal: NgbModalRef;
-  addAddressActiveModal: NgbActiveModal;
+  @ViewChild('addressAddEditModal', {static: false}) addressAddEditModal: NgbModalRef;
+  @ViewChild('addressDeleteModal', {static: false}) addressDeleteModal: NgbModalRef;
+
+  addressActiveModal: NgbActiveModal;
+
   addresses: AddressModel[];
-  addAddressForm: FormGroup;
+  addEditAddressForm: FormGroup;
   allStates: StateModel[];
+  deletedAddress: AddressModel;
+  editedAddress: AddressModel;
+  addressEditMode: boolean;
 
   showMainSpinner = true;
   calendarIcon = faCalendar;
+  trashIcon = faTrash;
+  editIcon = faPen;
 
   constructor(
     private householdService: HouseholdService,
@@ -29,7 +43,7 @@ export class AddressesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllAddresses();
-    this.initAddAddressForm();
+    // this.initAddAddressForm();
     this.householdService.getAllStates()
       .subscribe((allStates: any) => {
         this.allStates = allStates;
@@ -37,20 +51,71 @@ export class AddressesComponent implements OnInit {
   }
 
   openAddAddressModal() {
-    this.addAddressActiveModal = this.modalService.open(this.addAddressModal);
+    this.addressEditMode = false;
+    this.initAddAddressForm();
+    this.addressActiveModal = this.modalService.open(this.addressAddEditModal);
   }
 
   closeAddressModal() {
-    this.addAddressActiveModal.close();
-    this.initAddAddressForm();
+    this.addressActiveModal.close();
   }
 
   addAddress() {
-    const newAddress = this.addAddressForm.value as CreateAddressModel;
-    this.householdService.addAddress(newAddress)
+    const newAddress = this.formatAddressFormValue();
+    this.householdService.addAddress(newAddress as CreateAddressModel)
       .subscribe((createdAddress: AddressModel) => {
+        formatAddress(createdAddress);
         this.addresses.push(createdAddress);
         this.closeAddressModal();
+      }, error => {
+        console.log(error);
+        this.closeAddressModal();
+      });
+  }
+
+  openEditAddressModal(id: number) {
+    this.addressEditMode = true;
+    this.editedAddress = this.addresses.find(a => a.id === id);
+    this.initAddAddressForm();
+    this.addressActiveModal = this.modalService.open(this.addressAddEditModal);
+  }
+
+  closeEditAddressModal() {
+    this.closeAddressModal();
+    this.editedAddress = null;
+  }
+
+  editAddress() {
+    const editedAddress = this.formatAddressFormValue();
+    this.householdService.editAddress(this.editedAddress.id, editedAddress as AddressModel)
+      .subscribe((updatedAddress: AddressModel) => {
+        const index = this.addresses.findIndex(a => a.id === this.editedAddress.id);
+        if (index > -1) {
+          formatAddress(updatedAddress);
+          this.addresses[index] = updatedAddress;
+          this.closeEditAddressModal();
+        }
+      });
+  }
+
+  openDeleteAddressModal(id: number) {
+    this.deletedAddress = this.addresses.find(a => a.id === id);
+    this.addressActiveModal = this.modalService.open(this.addressDeleteModal);
+  }
+
+  closeDeleteAddressModal() {
+    this.addressActiveModal.close();
+    this.deletedAddress = null;
+  }
+
+  deleteAddress() {
+    this.householdService.removeAddress(this.deletedAddress.id)
+      .subscribe(() => {
+        const index = this.addresses.findIndex(a => a.id === this.deletedAddress.id);
+        if (index > -1) {
+          this.addresses.splice(index, 1);
+        }
+        this.closeDeleteAddressModal();
       });
   }
 
@@ -58,21 +123,43 @@ export class AddressesComponent implements OnInit {
     this.householdService.getAllAddresses()
       .subscribe((addresses: AddressModel[]) => {
         this.addresses = addresses;
+        this.addresses.forEach(
+          (a: AddressModel) => formatAddress(a));
         this.showMainSpinner = false;
       });
   }
 
   private initAddAddressForm() {
-    this.addAddressForm = new FormGroup({
-      period_start: new FormControl(null, [Validators.required]),
-      period_end: new FormControl(null),
-      address_line1: new FormControl(null, [Validators.required]),
-      address_line2: new FormControl(null),
-      apt_suite: new FormControl(null),
-      city: new FormControl(null, [Validators.required]),
-      state: new FormControl(null, [Validators.required]),
-      zip_code: new FormControl(null, [Validators.required, Validators.minLength(5)]),
-      comment: new FormControl(null)
-    });
+    if (this.addressEditMode) {
+      const periodStart = getStructFromString(this.editedAddress.period_start);
+      const periodEnd = !!this.editedAddress.period_end ? getStructFromString(this.editedAddress.period_end) : null;
+      this.addEditAddressForm = new FormGroup({
+        period_start: new FormControl(periodStart, [Validators.required]),
+        period_end: new FormControl(periodEnd),
+        comment: new FormControl(this.editedAddress.comment)
+      });
+    }
+    else {
+      this.addEditAddressForm = new FormGroup({
+        period_start: new FormControl(null, [Validators.required]),
+        period_end: new FormControl(null),
+        address_line1: new FormControl(null, [Validators.required]),
+        address_line2: new FormControl(null),
+        apt_suite: new FormControl(null),
+        city: new FormControl(null, [Validators.required]),
+        state: new FormControl(null, [Validators.required]),
+        zip_code: new FormControl(null, [Validators.required]),
+        comment: new FormControl(null)
+      });
+    }
+  }
+
+  private formatAddressFormValue() {
+    const newAddress = this.addEditAddressForm.value;
+    newAddress.period_start = formatDateToNgbDateStr(newAddress.period_start);
+    newAddress.period_end = !!newAddress.period_end ? formatDateToNgbDateStr(newAddress.period_end) : null;
+    // This is needed to set as null. If touched, input field creates blank string instead of null
+    newAddress.apt_suite = !!newAddress.apt_suite ? newAddress.apt_suite : null;
+    return newAddress;
   }
 }

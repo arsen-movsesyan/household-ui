@@ -53,6 +53,14 @@ export class HouseholdService {
     return this.httpClient.post<AddressModel>(createAddressUrl, newAddress);
   }
 
+  editAddress( id: number, updatedAddress: AddressModel) {
+    return this.httpClient.patch<AddressModel>(addressUrl + id.toString() + '/', updatedAddress);
+  }
+
+  removeAddress(id: number) {
+    return this.httpClient.delete(addressUrl + id.toString() + '/');
+  }
+
   getAllStates() {
     return this.httpClient.get(statesAPI);
   }
