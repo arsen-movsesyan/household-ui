@@ -1,0 +1,81 @@
+<div class="mt-4">
+  <app-spinner message="Getting Person Info" (dismiss)="showMainSpinner=false" *ngIf="showMainSpinner"></app-spinner>
+</div>
+
+<div class="col-lg-8 offset-lg-2" *ngIf="!!person">
+
+  <div class="card">
+
+    <div class="card-header bg-light d-flex justify-content-between">
+      <span>{{person.first_name}} {{person.last_name}}</span>
+      <div class=" btn-group btn-group-sm">
+        <button type="button" class="btn btn-outline-primary" (click)="openEditModal()">
+          Edit
+        </button>
+        <button type="button" class="btn btn-outline-danger" (click)="openRemoveModal()">
+          Remove
+        </button>
+
+      </div>
+    </div>
+
+    <div class="card-body">
+
+      <div class="row">
+        <div class="col-lg-4"><span><strong>Name</strong></span></div>
+        <div class="col-lg-8"><span><em>{{person.first_name}} {{person.last_name}}</em></span></div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-4"><span><strong>Email</strong></span></div>
+        <div class="col-lg-8"><span><em><a [href]="'mailto:' + person.email">{{person.email}}</a> </em></span></div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-4"><span><strong>Phone</strong></span></div>
+        <div class="col-lg-8"><span><em><a [href]="'tel:' + person.phone">{{person.phone | phone}}</a></em></span></div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-4"><span><strong>D.O.B.</strong></span></div>
+        <div class="col-lg-8"><span><em></em>{{person.dob | date: 'mediumDate'}}</span></div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-4"><span><strong>S.S.N.</strong></span></div>
+        <div class="col-lg-8">
+            <app-ssn [ssn]="person.ssn"></app-ssn>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card-footer">
+      <button class="btn btn-secondary" (click)="goBack()">Back</button>
+    </div>
+  </div>
+
+</div>
+
+
+<ng-template #removePersonModal let-modal>
+  <div class="modal-header bg-danger text-white">
+    <h5 class="modal-title">Remove/Retire Person</h5>
+    <button type="button" class="close" (click)="closeRemovePersonModal()">
+      <span>&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <span><strong>WARNING!</strong></span>
+
+    <p>You are about to retire <em>{{person.first_name}} {{person.last_name}}</em></p>
+    <p>Are you sure?</p>
+
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)=removePerson()>Add</button>&nbsp;
+    <button type="button" class="btn btn-secondary" ngbAutofocus (click)="closeRemovePersonModal()">Cancel</button>
+  </div>
+</ng-template>

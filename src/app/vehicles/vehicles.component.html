@@ -1,0 +1,114 @@
+<div class="mt-4">
+  <app-spinner message="Getting Vehicles" (dismiss)="showMainSpinner=false" *ngIf="showMainSpinner"></app-spinner>
+</div>
+
+<div class="card" *ngIf="!showMainSpinner">
+  <div class="card-header bg-warning d-flex justify-content-between">
+    <strong>Vehicles</strong>
+    <button class="btn btn-sm btn-success" (click)="openAddVehicleModal()">
+      Add Vehicle
+    </button>
+  </div>
+
+  <div class="card-body">
+
+    <table class="table table-borderless table-striped">
+
+      <thead>
+      <tr>
+        <th>Make</th>
+        <th>Model</th>
+        <th>Year</th>
+        <th>License Plate</th>
+        <th>V.I.N.</th>
+        <th>Purchased</th>
+        <th>Comment</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let vehicle of vehicles">
+        <td>
+          {{vehicle.make}}
+        </td>
+        <td>
+          {{vehicle.vehicle_model}}
+        </td>
+        <td>
+          {{vehicle.year}}
+        </td>
+        <td>
+          {{vehicle.license_plate}}
+        </td>
+        <td>
+          {{vehicle.vin}}
+        </td>
+        <td>
+          {{vehicle.purchase_year|date:'mediumDate'}}
+        </td>
+        <td>
+          {{vehicle.comment}}
+        </td>
+      </tr>
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
+
+
+<ng-template #addVehicleModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Request Part</h5>
+    <button type="button" class="close" (click)="closeVehicleModal()">
+      <span>&times;</span>
+    </button>
+
+  </div>
+  <form [formGroup]="addVehicleForm" (ngSubmit)="addVehicle()">
+    <div class="modal-body">
+
+      <div class="form-group">
+        <label>Make *</label>
+        <input type="text" class="form-control" formControlName="make">
+      </div>
+
+      <div class="form-group">
+        <label>Model *</label>
+        <input type="text" class="form-control" formControlName="vehicle_model">
+      </div>
+
+      <div class="form-group">
+        <label>Year *</label>
+        <input type="email" class="form-control" formControlName="year">
+      </div>
+
+      <div class="form-group">
+        <label>License Plate *</label>
+        <input type="text" class="form-control" formControlName="license_plate">
+      </div>
+
+      <div class="form-group">
+        <label>V.I.N. *</label>
+        <input type="text" class="form-control" formControlName="vin">
+      </div>
+
+      <div class="form-group">
+        <label>Date Of Purchase</label>
+        <input type="text" class="form-control" formControlName="purchase_year">
+      </div>
+
+      <div class="form-group">
+        <label>Comment</label>
+        <textarea class="form-control" formControlName="comment"></textarea>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-primary" ngbAutofocus [disabled]="addVehicleForm.invalid">Add Vehicle</button>&nbsp;
+      <button type="button" class="btn btn-secondary" (click)="closeVehicleModal()">Cancel</button>
+    </div>
+  </form>
+</ng-template>
+

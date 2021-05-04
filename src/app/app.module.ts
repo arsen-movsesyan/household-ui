@@ -11,6 +11,14 @@ import { SpinnerComponent } from './common/spinner/spinner.component';
 import {HttpClientModule} from '@angular/common/http';
 import { EmailDisplayComponent } from './common/email-display/email-display.component';
 import {PhonePipe} from './common/phone.pipe';
+import { SsnComponent } from './people/ssn/ssn.component';
+import { DisplaySsnComponent } from './common/display-ssn/display-ssn.component';
+import { PersonComponent } from './people/person/person.component';
+import { VehiclesComponent } from './vehicles/vehicles.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import { AddressesComponent } from './addresses/addresses.component';
+import { AddEditPersonComponent } from './people/addedit-person/addedit-person.component';
+import {TextMaskModule} from 'angular2-text-mask';
 
 @NgModule({
   declarations: [
@@ -19,16 +27,25 @@ import {PhonePipe} from './common/phone.pipe';
     PeopleComponent,
     SpinnerComponent,
     EmailDisplayComponent,
-    PhonePipe
+    PhonePipe,
+    SsnComponent,
+    DisplaySsnComponent,
+    PersonComponent,
+    VehiclesComponent,
+    AddressesComponent,
+    AddEditPersonComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     FontAwesomeModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    TextMaskModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [AddEditPersonComponent],
 })
 export class AppModule { }

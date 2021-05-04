@@ -6,4 +6,5 @@ export interface PersonModel {
   phone: string;
   ssn: string;
   dob: string;
+  retired: boolean;
 }

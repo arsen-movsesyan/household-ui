@@ -1,0 +1,128 @@
+<div class="mt-4">
+  <app-spinner message="Getting People" (dismiss)="showMainSpinner=false" *ngIf="showMainSpinner"></app-spinner>
+</div>
+
+<div class="card" *ngIf="!showMainSpinner">
+  <div class="card-header text-white bg-info d-flex justify-content-between">
+    <strong>Addresses</strong>
+    <button type="button" class="btn btn-sm btn-warning" (click)="openAddAddressModal()">
+      Add Address
+    </button>
+  </div>
+
+  <div class="card-body">
+    <table class="table table-borderless table-striped">
+      <thead>
+      <tr>
+        <th>Address</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Comment</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let address of addresses">
+        <td>{{address.formatted_address}}</td>
+        <td>{{address.period_start|date:'mediumDate'}}</td>
+        <td>{{address.period_end|date:'mediumDate'}}</td>
+        <td>{{address.comment}}</td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+
+<ng-template #addAddressModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Request Part</h5>
+    <button type="button" class="close" (click)="closeAddressModal()">
+      <span>&times;</span>
+    </button>
+  </div>
+  <form [formGroup]="addAddressForm" (ngSubmit)="addAddress()">
+    <div class="modal-body">
+
+      <div class="form-group">
+        <label>Period Start *</label>
+        <div class="form-inline">
+          <div class="input-group">
+
+            <input type="text" class="form-control" formControlName="period_start" ngbDatepicker #dp="ngbDatepicker" placeholder="yyyy-mm-dd">
+
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" (click)="dp.toggle()" type="button">
+                <fa-icon [icon]="calendarIcon"></fa-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-group">
+        <label>Period End</label>
+        <div class="form-inline">
+          <div class="input-group">
+
+            <input type="text" class="form-control" formControlName="period_end" ngbDatepicker #dp="ngbDatepicker" placeholder="yyyy-mm-dd">
+
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" (click)="dp.toggle()" type="button">
+                <fa-icon [icon]="calendarIcon"></fa-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-group">
+        <label>Address *</label>
+        <input type="text" class="form-control" formControlName="address_line1">
+      </div>
+
+      <div class="form-group">
+        <label>Address (continuation)</label>
+        <input type="text" class="form-control" formControlName="address_line2">
+      </div>
+
+      <div class="form-group">
+        <label>Apartment/Suite</label>
+        <input type="text" class="form-control" formControlName="apt_suite">
+      </div>
+
+      <div class="form-group">
+        <label>City *</label>
+        <input type="text" class="form-control" formControlName="city">
+      </div>
+
+      <div class="form-group">
+        <label>State/Province *</label>
+        <select class="form-control" formControlName="state">
+          <option>Select State</option>
+          <option *ngFor="let state of allStates" [value]="state.abbreviation">{{state.name}}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Zip Code *</label>
+        <input type="text" class="form-control" formControlName="zip_code">
+      </div>
+
+      <div class="form-group">
+        <label>Comment</label>
+        <textarea class="form-control" formControlName="comment"></textarea>
+      </div>
+
+
+    </div>
+
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-primary" ngbAutofocus [disabled]="addAddressForm.invalid">Add</button>&nbsp;
+      <button type="button" class="btn btn-secondary" (click)="closeAddressModal()">Cancel</button>
+    </div>
+  </form>
+
+</ng-template>

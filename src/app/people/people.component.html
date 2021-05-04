@@ -1,10 +1,14 @@
 <div class="mt-4">
-  <app-spinner message="Getting WorkOrder" (dismiss)="showMainSpinner=false" *ngIf="showMainSpinner"></app-spinner>
+  <app-spinner message="Getting People" (dismiss)="showMainSpinner=false" *ngIf="showMainSpinner"></app-spinner>
 </div>
 
 <div class="card" *ngIf="!showMainSpinner">
   <div class="card-header text-white bg-success d-flex justify-content-between">
-    <h5>People</h5>
+    <strong>People</strong>
+    <button type="button" class="btn btn-sm btn-warning" (click)="openAddPersonModal()">
+      Add Person
+    </button>
+
   </div>
 
   <div class="card-body">
@@ -13,18 +17,19 @@
 
       <thead>
       <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
+        <th>Person</th>
         <th>Email</th>
         <th>Phone</th>
         <th>D.O.B.</th>
-        <th>S.S.N.</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let person of people">
-        <td>{{person.first_name}}</td>
-        <td>{{person.last_name}}</td>
+        <td>
+          <a class="btn btn-link" [routerLink]="'/person/' + person.id">
+            {{person.first_name}} {{person.last_name}}
+          </a>
+        </td>
         <td>
           <a [href]="'mailto:' + person.email">
             <app-email-display [email]="person.email"></app-email-display>
@@ -36,7 +41,6 @@
           </a>
         </td>
         <td>{{person.dob | date: 'mediumDate'}}</td>
-        <td>Show</td>
       </tr>
       </tbody>
 
