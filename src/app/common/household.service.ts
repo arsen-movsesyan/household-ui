@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {addressUrl, createAddressUrl, peopleUrl, statesAPI, vehicleUrl} from './urls';
+import {accountUrl, addressUrl, createAddressUrl, peopleUrl, statesAPI, vehicleUrl} from './urls';
 import {PersonModel} from '../models/person.model';
 import {VehicleModel} from '../models/vehicle.model';
 import {AddressModel} from '../models/address.model';
 import {CreateAddressModel} from '../models/create-address.model';
+import {AccountModel} from '../models/account.model';
 
 @Injectable({providedIn: 'root'})
 export class HouseholdService {
@@ -67,6 +68,26 @@ export class HouseholdService {
 
   removeAddress(id: number) {
     return this.httpClient.delete(addressUrl + id.toString() + '/');
+  }
+
+  getAllAccounts() {
+    return this.httpClient.get<AccountModel[]>(accountUrl);
+  }
+
+  getAccount(id: string) {
+    return this.httpClient.get(accountUrl + id + '/');
+  }
+
+  addAccount(newAccount: AccountModel) {
+    return this.httpClient.post<AccountModel>(accountUrl, newAccount);
+  }
+
+  editAccount(id: number, editedAccount: AccountModel) {
+    return this.httpClient.patch<AccountModel>(accountUrl + id.toString() + '/', editedAccount);
+  }
+
+  removeAccount(id: number) {
+    return this.httpClient.delete(accountUrl + id.toString() + '/');
   }
 
   getAllStates() {

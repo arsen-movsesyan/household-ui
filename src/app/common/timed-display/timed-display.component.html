@@ -1,0 +1,7 @@
+<div style="width: 90px">
+
+  <button class="btn btn-warning btn-sm" (click)="display()" *ngIf="!show">Show</button>
+
+</div>
+
+<span *ngIf="show" style="font-size: small; color: darkgrey;">{{content}}</span>

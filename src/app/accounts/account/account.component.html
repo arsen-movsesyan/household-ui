@@ -1,0 +1,88 @@
+<div class="mt-4">
+  <app-spinner message="Getting Account Info" (dismiss)="showMainSpinner=false" *ngIf="showMainSpinner"></app-spinner>
+</div>
+
+
+<div class="col-lg-8 offset-lg-2" *ngIf="!!account">
+
+  <div class="card">
+    <div class="card-header bg-warning d-flex justify-content-between">
+      <span>{{account.account_name}}</span>
+      <div class=" btn-group btn-group-sm">
+        <button type="button" class="btn btn-outline-primary" [routerLink]="'/edit-account/' + account.id">
+          Edit
+        </button>
+        <button type="button" class="btn btn-outline-danger" (click)="removeAccount()">
+          Remove
+        </button>
+
+      </div>
+    </div>
+
+    <div class="card-body">
+
+      <div class="row">
+
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="col-lg-4"><span><strong>Account</strong></span></div>
+            <div class="col-lg-8"><span><em>{{account.account_name}}</em></span></div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-4"><span><strong>Description</strong></span></div>
+            <div class="col-lg-8"><span><em>{{account.description}}</em></span></div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <a class="btn btn-link" [href]="account.account_url" target="_blank">
+                Visit Site
+              </a>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-4"><span><strong>Password</strong></span></div>
+            <div class="col-lg-8">
+              <app-timed-display [content]="account.password_value"></app-timed-display>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-lg-6"></div>
+
+      </div>
+
+    </div>
+
+    <div class="card-footer">
+      <button class="btn btn-secondary" (click)="goBack()">Back</button>
+    </div>
+  </div>
+
+</div>
+
+
+<ng-template #removeAccountModal let-modal>
+  <div class="modal-header bg-danger text-white">
+    <h5 class="modal-title">Remove/Retire Person</h5>
+    <button type="button" class="close" (click)="modal.close(false)">
+      <span>&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <span><strong>WARNING!</strong></span>
+
+    <p>You are about to remove <em>{{account.account_name}}</em></p>
+    <p>This action may not be undone!</p>
+
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)=modal.close(true)>Retire</button>&nbsp;
+    <button type="button" class="btn btn-secondary" ngbAutofocus (click)="modal.close(false)">Cancel</button>
+  </div>
+</ng-template>
