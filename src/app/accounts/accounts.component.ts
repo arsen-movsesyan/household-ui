@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HouseholdService} from '../common/household.service';
 import {AccountModel} from '../models/account.model';
 import {TABLE_ITEMS_PER_PAGE} from '../common/constants';
+import {faExternalLinkAlt} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-accounts',
@@ -15,6 +16,7 @@ export class AccountsComponent implements OnInit {
   searchString: string;
   pageSize: number;
 
+  newTabIcon = faExternalLinkAlt;
   page = 1;
   tableItemsPerPage = TABLE_ITEMS_PER_PAGE;
 
@@ -30,13 +32,19 @@ export class AccountsComponent implements OnInit {
       });
   }
 
+  get onePageItems() {
+    return this.displayAccounts.slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + +this.pageSize);
+  }
+
+
   filter() {
     if (!!this.searchString) {
       this.displayAccounts = this.allAccounts.filter(a => {
         const term = this.searchString.toLowerCase();
-        if (a.account_name.startsWith(term)) {
+        if (a.account_name.toLowerCase().includes(term)) {
           return true;
-        } else if (!!a.description && a.description.toLowerCase().includes(term)) {
+        }
+        if (!!a.description && a.description.toLowerCase().includes(term)) {
           return true;
         }
       });

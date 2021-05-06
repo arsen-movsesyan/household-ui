@@ -9,3 +9,4 @@ export const TABLE_ITEMS_PER_PAGE = [
 ];
 
 export const briefDisplaySize = 40;
+export const urlRegEx = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';

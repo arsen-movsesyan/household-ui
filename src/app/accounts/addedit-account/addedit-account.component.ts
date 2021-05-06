@@ -5,6 +5,7 @@ import {AccountModel} from '../../models/account.model';
 import {ActivatedRoute} from '@angular/router';
 import {HouseholdService} from '../../common/household.service';
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
+import {urlRegEx} from '../../common/constants';
 
 @Component({
   selector: 'app-addedit-account',
@@ -45,7 +46,7 @@ export class AddEditAccountComponent implements OnInit {
 
   addExtraFieldFormGroup() {
     this.extraFieldFormArray.push(new FormGroup({
-      property: new FormControl(null, [Validators.required]),
+      parameter: new FormControl(null, [Validators.required]),
       value: new FormControl(null, [Validators.required]),
       comment: new FormControl(null)
     }));
@@ -69,7 +70,7 @@ export class AddEditAccountComponent implements OnInit {
   private initAccountForm() {
     this.accountForm = new FormGroup({
       account_name: new FormControl(null, [Validators.required]),
-      account_url: new FormControl(null, [Validators.required]),
+      account_url: new FormControl(null, [Validators.required, Validators.pattern(urlRegEx)]),
       description: new FormControl(null, [Validators.required]),
       username_value: new FormControl(null, [Validators.required]),
       password_value: new FormControl(null, [Validators.required]),

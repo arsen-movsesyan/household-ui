@@ -16,49 +16,51 @@
       </div>
 
       <div class="card-body">
-        <section *ngIf="displayAccounts.length > 0">
 
-          <div class="form-group d-inline-block form-inline ml-3">
-            Full text search: <input class="form-control ml-2" type="text" [(ngModel)]="searchString" id="partSearchId" (keyup)="filter()">
+        <div class="form-group d-flex form-inline ml-3 justify-content-end">
+          <section>
+            Search: <input class="form-control ml-2" type="text" [(ngModel)]="searchString" id="partSearchId" (keyup)="filter()">
+          </section>
+        </div>
+
+        <table class="table table-hover table-borderless table-sm">
+          <thead>
+          <tr class="table-active">
+            <th>Account</th>
+            <th>Description</th>
+            <th>&nbsp;</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let account of onePageItems">
+            <td [routerLink]="'/account/' + account.id" class="pointer-link">
+                {{account.account_name}}
+            </td>
+            <td [routerLink]="'/account/' + account.id" class="pointer-link">
+              {{account.description}}
+            </td>
+            <td>
+              <a class="btn btn-link" [href]="account.account_url" target="_blank">
+                Visit Site <fa-icon [icon]="newTabIcon"></fa-icon>
+              </a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+        <div class="d-flex justify-content-between p-2">
+          <ngb-pagination [collectionSize]="displayAccounts.length" [maxSize]="5" [(page)]="page" [pageSize]="pageSize">
+          </ngb-pagination>
+
+          <div class="form-group form-inline">
+            <label for="itemsPerPageId">Items Per Page</label>
+            <select class="custom-select ml-2" style="width: auto" [(ngModel)]="pageSize" id="itemsPerPageId">
+              <option [ngValue]="pageSize.value" *ngFor="let pageSize of tableItemsPerPage">{{pageSize.display}}</option>
+            </select>
+
           </div>
+        </div>
 
-          <table class="table table-striped table-borderless">
-            <thead>
-            <tr>
-              <th>Account Name</th>
-              <th>Description</th>
-              <th>URL</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let account of displayAccounts">
-              <td>
-                <a class="btn btn-link" [routerLink]="'/account/' + account.id">
-                  {{account.account_name}}
-                </a>
-              </td>
-              <td>{{account.description}}</td>
-              <td>{{account.account_url}}</td>
-            </tr>
-            </tbody>
-          </table>
-
-          <div class="d-flex justify-content-between p-2">
-            <ngb-pagination [collectionSize]="displayAccounts.length" [maxSize]="5" [(page)]="page" [pageSize]="pageSize">
-            </ngb-pagination>
-
-            <div class="form-group form-inline">
-              <label for="itemsPerPageId">Items Per Page</label>
-              <select class="custom-select ml-2" style="width: auto" [(ngModel)]="pageSize" id="itemsPerPageId">
-                <option [ngValue]="pageSize.value" *ngFor="let pageSize of tableItemsPerPage">{{pageSize.display}}</option>
-              </select>
-
-            </div>
-          </div>
-
-        </section>
-
-        <p *ngIf="displayAccounts.length === 0">There is no account to display</p>
 
       </div>
 

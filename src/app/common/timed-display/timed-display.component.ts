@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {faClock} from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-timed-display',
@@ -9,6 +10,7 @@ export class TimedDisplayComponent implements OnInit {
   @Input() content: string;
   show = false;
 
+  clockIcon = faClock;
   constructor() { }
 
   ngOnInit(): void {

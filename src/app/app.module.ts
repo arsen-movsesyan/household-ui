@@ -25,6 +25,7 @@ import { AccountComponent } from './accounts/account/account.component';
 import { TimedDisplayComponent } from './common/timed-display/timed-display.component';
 import { SsnPipe} from './common/ssn-pipe';
 import { BriefComponent } from './common/brief/brief.component';
+import { CopyToClipboardComponent } from './common/copy-to-clipboard/copy-to-clipboard.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { BriefComponent } from './common/brief/brief.component';
     AccountComponent,
     TimedDisplayComponent,
     BriefComponent,
+    CopyToClipboardComponent,
   ],
   imports: [
     BrowserModule,

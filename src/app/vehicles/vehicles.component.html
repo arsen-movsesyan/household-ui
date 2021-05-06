@@ -14,7 +14,7 @@
 
       <div class="card-body">
 
-        <table class="table table-borderless table-striped">
+        <table class="table table-borderless table-hover">
 
           <thead>
           <tr>
@@ -24,16 +24,12 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let vehicle of vehicles">
+          <tr *ngFor="let vehicle of vehicles" [routerLink]="'/vehicle/' + vehicle.id" class="pointer-link">
             <td>
-              <a class="btn btn-link" [routerLink]="'/vehicle/' + vehicle.id">
-                {{vehicle.make}}
-              </a>
+              {{vehicle.make}}
             </td>
             <td>
-              <a class="btn btn-link" [routerLink]="'/vehicle/' + vehicle.id">
-                {{vehicle.vehicle_model}}
-              </a>
+              {{vehicle.vehicle_model}}
             </td>
             <td>
               {{vehicle.license_plate}}
