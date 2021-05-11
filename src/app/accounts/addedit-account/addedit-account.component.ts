@@ -6,6 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 import {HouseholdService} from '../../common/household.service';
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
 import {urlRegEx} from '../../common/constants';
+import {AccountExtraModel} from '../../models/account-extra.model';
 
 @Component({
   selector: 'app-addedit-account',
@@ -27,13 +28,14 @@ export class AddEditAccountComponent implements OnInit {
 
   ngOnInit(): void {
     const accountId = this.route.snapshot.paramMap.get('id');
+    this.initAccountForm();
     if (!!accountId) {
       this.householdService.getAccount(accountId)
         .subscribe((account: AccountModel) => {
           this.account = account;
+          this.initAccountForm(this.account);
         });
     }
-    this.initAccountForm();
   }
 
   get editMode() {
@@ -44,11 +46,11 @@ export class AddEditAccountComponent implements OnInit {
     return this.extraFieldFormArray.controls as FormGroup[];
   }
 
-  addExtraFieldFormGroup() {
+  addExtraFieldFormGroup(extra?: AccountExtraModel) {
     this.extraFieldFormArray.push(new FormGroup({
-      parameter: new FormControl(null, [Validators.required]),
-      value: new FormControl(null, [Validators.required]),
-      comment: new FormControl(null)
+      parameter: new FormControl(extra ? extra.parameter : null, [Validators.required]),
+      value: new FormControl(extra ? extra.value : null, [Validators.required]),
+      comment: new FormControl(extra ? extra.comment : null)
     }));
   }
 
@@ -57,25 +59,39 @@ export class AddEditAccountComponent implements OnInit {
   }
 
   submit() {
-    this.householdService.addAccount(this.accountForm.value as AccountModel)
-      .subscribe(() => {
-        this.goBack();
-      });
+    if (this.editMode) {
+      this.householdService.editAccount(this.account.id, this.accountForm.value as AccountModel)
+        .subscribe(() => {
+          this.goBack();
+        });
+    } else {
+      this.householdService.addAccount(this.accountForm.value as AccountModel)
+        .subscribe(() => {
+          this.goBack();
+        });
+    }
   }
 
   goBack() {
     this.location.back();
   }
 
-  private initAccountForm() {
+  private initAccountForm(account?: AccountModel) {
     this.accountForm = new FormGroup({
-      account_name: new FormControl(null, [Validators.required]),
-      account_url: new FormControl(null, [Validators.required, Validators.pattern(urlRegEx)]),
-      description: new FormControl(null, [Validators.required]),
-      username_value: new FormControl(null, [Validators.required]),
-      password_value: new FormControl(null, [Validators.required]),
+      account_name: new FormControl(account ? account.account_name : null, [Validators.required]),
+      account_url: new FormControl(account ? account.account_url : null, [Validators.required, Validators.pattern(urlRegEx)]),
+      description: new FormControl(account ? account.description : null, [Validators.required]),
+      username_value: new FormControl(account ? account.username_value : null, [Validators.required]),
+      password_value: new FormControl(account ? account.password_value : null, [Validators.required]),
       extra_fields: new FormArray([])
     });
     this.extraFieldFormArray = this.accountForm.get('extra_fields') as FormArray;
+    if (!!account) {
+      if (!!account.extra_fields) {
+        account.extra_fields.forEach(f => {
+          this.addExtraFieldFormGroup(f);
+        });
+      }
+    }
   }
 }

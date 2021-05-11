@@ -26,6 +26,7 @@ import { TimedDisplayComponent } from './common/timed-display/timed-display.comp
 import { SsnPipe} from './common/ssn-pipe';
 import { BriefComponent } from './common/brief/brief.component';
 import { CopyToClipboardComponent } from './common/copy-to-clipboard/copy-to-clipboard.component';
+import { MakeRecurringComponent } from './accounts/make-recurring/make-recurring.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { CopyToClipboardComponent } from './common/copy-to-clipboard/copy-to-cli
     TimedDisplayComponent,
     BriefComponent,
     CopyToClipboardComponent,
+    MakeRecurringComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,6 +63,6 @@ import { CopyToClipboardComponent } from './common/copy-to-clipboard/copy-to-cli
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [AddEditPersonComponent, AddEditVehicleComponent],
+  entryComponents: [AddEditPersonComponent, AddEditVehicleComponent, MakeRecurringComponent],
 })
 export class AppModule { }

@@ -1,0 +1,75 @@
+<div class="modal-header">
+  <h5 class="modal-title">{{editMode ? 'Edit' : 'Make'}} Recurring</h5>
+  <button type="button" class="close" (click)="closeModal()">
+    <span>&times;</span>
+  </button>
+</div>
+
+<form [formGroup]="recurringForm">
+
+  <div class="modal-body">
+    <div class="mt-4" *ngIf="showMainSpinner">
+      <app-spinner message="Getting Info" (dismiss)="showMainSpinner = false" *ngIf="showMainSpinner"></app-spinner>
+    </div>
+    <section *ngIf="!showMainSpinner">
+
+      <div class="row">
+        <div class="col-lg-4">
+
+          <div class="form-group">
+            <label>Frequency *</label>
+            <select class="form-control" formControlName="frequency">
+              <option *ngFor="let frequency of constants.frequencies" [value]="frequency[0]" [selected]="frequency[0]===1">{{frequency[1]}}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Interval</label>
+            <input type="text" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>
+              <input type="checkbox" formControlName="acknowledge_required">
+              Requires Acknowledgment
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label>Comment</label>
+            <textarea class="form-control" formControlName="comment"></textarea>
+          </div>
+
+        </div>
+
+        <div class="col-lg-4">
+
+          <div class="form-group">
+            <label>Starting Date</label>
+            <input type="text" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Counts</label>
+            <input type="text" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Until</label>
+            <input type="text" class="form-control">
+          </div>
+
+        </div>
+
+      </div>
+
+
+    </section>
+
+  </div>
+
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary" ngbAutofocus [disabled]="recurringForm.invalid">{{editMode? 'Update' : 'Make Recurring'}}</button>&nbsp;
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+  </div>
+</form>

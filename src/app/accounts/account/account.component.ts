@@ -4,6 +4,8 @@ import {Location} from '@angular/common';
 import {ActivatedRoute} from '@angular/router';
 import {HouseholdService} from '../../common/household.service';
 import {AccountModel} from '../../models/account.model';
+import {faExternalLinkAlt} from '@fortawesome/free-solid-svg-icons';
+import {MakeRecurringComponent} from '../make-recurring/make-recurring.component';
 
 @Component({
   selector: 'app-account',
@@ -15,6 +17,7 @@ export class AccountComponent implements OnInit {
   account: AccountModel;
 
   showMainSpinner = true;
+  newTabIcon = faExternalLinkAlt;
 
   constructor(
     private location: Location,
@@ -39,6 +42,16 @@ export class AccountComponent implements OnInit {
           .subscribe(() => {
             this.goBack();
           });
+      }
+    });
+  }
+
+  makeRecurring() {
+    const recurringModal = this.modalService.open(MakeRecurringComponent, {size: 'lg'});
+    recurringModal.componentInstance.account = this.account;
+    recurringModal.result.then((res) => {
+      if (!!res) {
+        console.log(res);
       }
     });
   }

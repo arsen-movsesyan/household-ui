@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {accountUrl, addressUrl, createAddressUrl, peopleUrl, statesAPI, vehicleUrl} from './urls';
+import {accountUrl, addressUrl, constantsUrl, createAddressUrl, peopleUrl, statesAPI, vehicleUrl} from './urls';
 import {PersonModel} from '../models/person.model';
 import {VehicleModel} from '../models/vehicle.model';
 import {AddressModel} from '../models/address.model';
 import {CreateAddressModel} from '../models/create-address.model';
 import {AccountModel} from '../models/account.model';
+import {ConstantsModel} from './constants';
 
 @Injectable({providedIn: 'root'})
 export class HouseholdService {
@@ -92,5 +93,9 @@ export class HouseholdService {
 
   getAllStates() {
     return this.httpClient.get(statesAPI);
+  }
+
+  getConstants() {
+    return this.httpClient.get<ConstantsModel>(constantsUrl);
   }
 }
