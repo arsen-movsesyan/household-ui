@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {Location} from '@angular/common';
 import {AccountModel} from '../../models/account.model';
 import {ActivatedRoute} from '@angular/router';
@@ -15,8 +15,8 @@ import {AccountExtraModel} from '../../models/account-extra.model';
 })
 export class AddEditAccountComponent implements OnInit {
   account: AccountModel;
-  accountForm: FormGroup;
-  extraFieldFormArray: FormArray;
+  accountForm: UntypedFormGroup;
+  extraFieldFormArray: UntypedFormArray;
 
   trashIcon = faTrash;
 
@@ -43,14 +43,14 @@ export class AddEditAccountComponent implements OnInit {
   }
 
   getFormGroups() {
-    return this.extraFieldFormArray.controls as FormGroup[];
+    return this.extraFieldFormArray.controls as UntypedFormGroup[];
   }
 
   addExtraFieldFormGroup(extra?: AccountExtraModel) {
-    this.extraFieldFormArray.push(new FormGroup({
-      parameter: new FormControl(extra ? extra.parameter : null, [Validators.required]),
-      value: new FormControl(extra ? extra.value : null, [Validators.required]),
-      comment: new FormControl(extra ? extra.comment : null)
+    this.extraFieldFormArray.push(new UntypedFormGroup({
+      parameter: new UntypedFormControl(extra ? extra.parameter : null, [Validators.required]),
+      value: new UntypedFormControl(extra ? extra.value : null, [Validators.required]),
+      comment: new UntypedFormControl(extra ? extra.comment : null)
     }));
   }
 
@@ -77,15 +77,15 @@ export class AddEditAccountComponent implements OnInit {
   }
 
   private initAccountForm(account?: AccountModel) {
-    this.accountForm = new FormGroup({
-      account_name: new FormControl(account ? account.account_name : null, [Validators.required]),
-      account_url: new FormControl(account ? account.account_url : null, [Validators.required, Validators.pattern(urlRegEx)]),
-      description: new FormControl(account ? account.description : null, [Validators.required]),
-      username_value: new FormControl(account ? account.username_value : null, [Validators.required]),
-      password_value: new FormControl(account ? account.password_value : null, [Validators.required]),
-      extra_fields: new FormArray([])
+    this.accountForm = new UntypedFormGroup({
+      account_name: new UntypedFormControl(account ? account.account_name : null, [Validators.required]),
+      account_url: new UntypedFormControl(account ? account.account_url : null, [Validators.required, Validators.pattern(urlRegEx)]),
+      description: new UntypedFormControl(account ? account.description : null, [Validators.required]),
+      username_value: new UntypedFormControl(account ? account.username_value : null, [Validators.required]),
+      password_value: new UntypedFormControl(account ? account.password_value : null, [Validators.required]),
+      extra_fields: new UntypedFormArray([])
     });
-    this.extraFieldFormArray = this.accountForm.get('extra_fields') as FormArray;
+    this.extraFieldFormArray = this.accountForm.get('extra_fields') as UntypedFormArray;
     if (!!account) {
       if (!!account.extra_fields) {
         account.extra_fields.forEach(f => {

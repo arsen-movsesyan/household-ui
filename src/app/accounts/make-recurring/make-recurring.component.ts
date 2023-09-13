@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {AccountModel} from '../../models/account.model';
 import {RecurringModel} from '../../models/recurring.model';
 import {HouseholdService} from '../../common/household.service';
@@ -18,7 +18,7 @@ export class MakeRecurringComponent implements OnInit {
   constants: ConstantsModel;
 
   editMode: boolean;
-  recurringForm: FormGroup;
+  recurringForm: UntypedFormGroup;
   showMainSpinner = true;
   calendarIcon = faCalendar;
 
@@ -34,12 +34,12 @@ export class MakeRecurringComponent implements OnInit {
         this.constants = constants;
         this.showMainSpinner = false;
       });
-    this.recurringForm = new FormGroup({
-      account_id: new FormControl(this.account.id),
-      frequency: new FormControl(this.editMode ? this.recurring.frequency : null, [Validators.required]),
-      extra_params: new FormArray([]),
-      acknowledge_required: new FormControl(this.editMode ? this.recurring.acknowledge_required : null),
-      comment: new FormControl(this.editMode ? this.recurring.comment : null)
+    this.recurringForm = new UntypedFormGroup({
+      account_id: new UntypedFormControl(this.account.id),
+      frequency: new UntypedFormControl(this.editMode ? this.recurring.frequency : null, [Validators.required]),
+      extra_params: new UntypedFormArray([]),
+      acknowledge_required: new UntypedFormControl(this.editMode ? this.recurring.acknowledge_required : null),
+      comment: new UntypedFormControl(this.editMode ? this.recurring.comment : null)
     });
   }
 

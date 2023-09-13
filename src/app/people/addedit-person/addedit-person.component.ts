@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {PersonModel} from '../../models/person.model';
 import {faCalendar} from '@fortawesome/free-regular-svg-icons/faCalendar';
@@ -13,7 +13,7 @@ import {cleanPhoneSsnMaskedValue, formatDateToNgbDateStr, getStructFromString} f
 })
 export class AddEditPersonComponent implements OnInit {
   @Input() person: PersonModel;
-  addPersonForm: FormGroup;
+  addPersonForm: UntypedFormGroup;
   calendarIcon = faCalendar;
   phoneMask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   ssnMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
@@ -52,17 +52,17 @@ export class AddEditPersonComponent implements OnInit {
   }
 
   private initPersonForm() {
-    this.addPersonForm = new FormGroup({
-      first_name: new FormControl(this.editMode ? this.person.first_name : null, [Validators.required]),
-      last_name: new FormControl(this.editMode ? this.person.last_name : null, [Validators.required]),
-      email: new FormControl(this.editMode ? this.person.email : null, [Validators.required, Validators.email]),
-      phone: new FormControl(this.editMode ? this.person.phone : null, [Validators.required]),
-      dob: new FormControl(null, [Validators.required]),
-      ssn: new FormControl(this.editMode ? this.person.ssn : null, [Validators.required])
+    this.addPersonForm = new UntypedFormGroup({
+      first_name: new UntypedFormControl(this.editMode ? this.person.first_name : null, [Validators.required]),
+      last_name: new UntypedFormControl(this.editMode ? this.person.last_name : null, [Validators.required]),
+      email: new UntypedFormControl(this.editMode ? this.person.email : null, [Validators.required, Validators.email]),
+      phone: new UntypedFormControl(this.editMode ? this.person.phone : null, [Validators.required]),
+      dob: new UntypedFormControl(null, [Validators.required]),
+      ssn: new UntypedFormControl(this.editMode ? this.person.ssn : null, [Validators.required])
     });
     if (this.editMode) {
       const dob = getStructFromString(this.person.dob);
-      this.addPersonForm.setControl('dob', new FormControl(dob));
+      this.addPersonForm.setControl('dob', new UntypedFormControl(dob));
     }
   }
 }

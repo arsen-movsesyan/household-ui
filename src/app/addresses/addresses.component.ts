@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {AddressModel} from '../models/address.model';
 import {HouseholdService} from '../common/household.service';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {
   NgbActiveModal,
   NgbModal,
@@ -25,7 +25,7 @@ export class AddressesComponent implements OnInit {
   addressActiveModal: NgbActiveModal;
 
   addresses: AddressModel[];
-  addEditAddressForm: FormGroup;
+  addEditAddressForm: UntypedFormGroup;
   allStates: StateModel[];
   deletedAddress: AddressModel;
   editedAddress: AddressModel;
@@ -133,23 +133,23 @@ export class AddressesComponent implements OnInit {
     if (this.addressEditMode) {
       const periodStart = getStructFromString(this.editedAddress.period_start);
       const periodEnd = !!this.editedAddress.period_end ? getStructFromString(this.editedAddress.period_end) : null;
-      this.addEditAddressForm = new FormGroup({
-        period_start: new FormControl(periodStart, [Validators.required]),
-        period_end: new FormControl(periodEnd),
-        comment: new FormControl(this.editedAddress.comment)
+      this.addEditAddressForm = new UntypedFormGroup({
+        period_start: new UntypedFormControl(periodStart, [Validators.required]),
+        period_end: new UntypedFormControl(periodEnd),
+        comment: new UntypedFormControl(this.editedAddress.comment)
       });
     }
     else {
-      this.addEditAddressForm = new FormGroup({
-        period_start: new FormControl(null, [Validators.required]),
-        period_end: new FormControl(null),
-        address_line1: new FormControl(null, [Validators.required]),
-        address_line2: new FormControl(null),
-        apt_suite: new FormControl(null),
-        city: new FormControl(null, [Validators.required]),
-        state: new FormControl(null, [Validators.required]),
-        zip_code: new FormControl(null, [Validators.required]),
-        comment: new FormControl(null)
+      this.addEditAddressForm = new UntypedFormGroup({
+        period_start: new UntypedFormControl(null, [Validators.required]),
+        period_end: new UntypedFormControl(null),
+        address_line1: new UntypedFormControl(null, [Validators.required]),
+        address_line2: new UntypedFormControl(null),
+        apt_suite: new UntypedFormControl(null),
+        city: new UntypedFormControl(null, [Validators.required]),
+        state: new UntypedFormControl(null, [Validators.required]),
+        zip_code: new UntypedFormControl(null, [Validators.required]),
+        comment: new UntypedFormControl(null)
       });
     }
   }

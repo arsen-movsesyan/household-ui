@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {VehicleModel} from '../../models/vehicle.model';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {faCalendar} from '@fortawesome/free-regular-svg-icons/faCalendar';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {formatDateToNgbDateStr, getStructFromString} from '../../common/utils';
@@ -12,7 +12,7 @@ import {formatDateToNgbDateStr, getStructFromString} from '../../common/utils';
 })
 export class AddEditVehicleComponent implements OnInit {
   @Input() vehicle: VehicleModel;
-  addEditVehicleForm: FormGroup;
+  addEditVehicleForm: UntypedFormGroup;
 
   calendarIcon = faCalendar;
 
@@ -39,18 +39,18 @@ export class AddEditVehicleComponent implements OnInit {
   }
 
   private initVehicleForm() {
-    this.addEditVehicleForm = new FormGroup({
-      make: new FormControl(this.editMode ? this.vehicle.make : null, [Validators.required]),
-      vehicle_model: new FormControl(this.editMode ? this.vehicle.vehicle_model : null, [Validators.required]),
-      year: new FormControl(this.editMode ? this.vehicle.year : null, [Validators.required]),
-      license_plate: new FormControl(this.editMode ? this.vehicle.license_plate : null, [Validators.required]),
-      vin: new FormControl(this.editMode ? this.vehicle.vin : null, [Validators.required]),
-      purchase_year: new FormControl(this.editMode ? this.vehicle.purchase_year : null),
-      comment: new FormControl(null)
+    this.addEditVehicleForm = new UntypedFormGroup({
+      make: new UntypedFormControl(this.editMode ? this.vehicle.make : null, [Validators.required]),
+      vehicle_model: new UntypedFormControl(this.editMode ? this.vehicle.vehicle_model : null, [Validators.required]),
+      year: new UntypedFormControl(this.editMode ? this.vehicle.year : null, [Validators.required]),
+      license_plate: new UntypedFormControl(this.editMode ? this.vehicle.license_plate : null, [Validators.required]),
+      vin: new UntypedFormControl(this.editMode ? this.vehicle.vin : null, [Validators.required]),
+      purchase_year: new UntypedFormControl(this.editMode ? this.vehicle.purchase_year : null),
+      comment: new UntypedFormControl(null)
     });
     if (this.editMode) {
       const purchaseDate = getStructFromString(this.vehicle.purchase_year);
-      this.addEditVehicleForm.setControl('purchase_year', new FormControl(purchaseDate));
+      this.addEditVehicleForm.setControl('purchase_year', new UntypedFormControl(purchaseDate));
     }
   }
 }
