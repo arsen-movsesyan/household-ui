@@ -28,7 +28,9 @@ export class AddEditVehicleComponent implements OnInit {
 
   submit() {
     const value = this.addEditVehicleForm.value;
-    value.purchase_year = formatDateToNgbDateStr(value.purchase_year);
+    if (!!value.purchase_year) {
+      value.purchase_year = formatDateToNgbDateStr(value.purchase_year);
+    }
     this.activeModal.close(value as VehicleModel);
   }
 

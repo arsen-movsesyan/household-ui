@@ -25,7 +25,7 @@
 
           <div class="form-group">
             <label>Interval</label>
-            <input type="text" class="form-control">
+            <input type="number" class="form-control" min="1" step="1">
           </div>
 
           <div class="form-group">
@@ -46,17 +46,51 @@
 
           <div class="form-group">
             <label>Starting Date</label>
-            <input type="text" class="form-control">
+            <div class="input-group">
+
+              <input type="text" class="form-control" ngbDatepicker #sdp="ngbDatepicker" placeholder="yyyy-mm-dd">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" (click)="sdp.toggle()" type="button">
+                  <fa-icon [icon]="calendarIcon"></fa-icon>
+                </button>
+              </div>
+
+            </div>
+
           </div>
 
           <div class="form-group">
             <label>Counts</label>
-            <input type="text" class="form-control">
+            <div class="input-group">
+
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <input type="checkbox">
+                </div>
+
+              </div>
+              <input type="number" min="1" step="1" class="form-control">
+
+            </div>
+
           </div>
 
           <div class="form-group">
             <label>Until</label>
-            <input type="text" class="form-control">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <input type="checkbox">
+                </div>
+              </div>
+
+              <input type="text" class="form-control" ngbDatepicker #udp="ngbDatepicker" placeholder="yyyy-mm-dd">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" (click)="udp.toggle()" type="button">
+                  <fa-icon [icon]="calendarIcon"></fa-icon>
+                </button>
+              </div>
+            </div>
           </div>
 
         </div>
