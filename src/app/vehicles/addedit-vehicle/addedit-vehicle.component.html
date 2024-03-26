@@ -1,64 +1,60 @@
 <div class="modal-header">
   <h5 class="modal-title">{{editMode ? 'Edit ' : 'Add New'}} Vehicle</h5>
-  <button type="button" class="close" (click)="closeModal()">
-    <span>&times;</span>
-  </button>
+  <button type="button" class="btn-close" (click)="closeModal()"></button>
 
 </div>
 <form [formGroup]="addEditVehicleForm" (ngSubmit)="submit()">
   <div class="modal-body">
 
-    <div class="form-group">
+    <div class="mb-3">
       <label>Make *</label>
       <input type="text" class="form-control" formControlName="make">
     </div>
 
-    <div class="form-group">
+    <div class="mb-3">
       <label>Model *</label>
       <input type="text" class="form-control" formControlName="vehicle_model">
     </div>
 
-    <div class="form-group">
+    <div class="mb-3">
       <label>Year *</label>
       <input type="email" class="form-control" formControlName="year">
     </div>
 
-    <div class="form-group">
+    <div class="mb-3">
       <label>License Plate *</label>
       <input type="text" class="form-control" formControlName="license_plate">
     </div>
 
-    <div class="form-group">
+    <div class="mb-3">
       <label>V.I.N. *</label>
       <input type="text" class="form-control" formControlName="vin">
     </div>
 
-    <div class="form-group">
+    <div class="mb-3">
       <label>Date Of Purchase</label>
       <div class="form-inline">
         <div class="input-group">
 
           <input type="text" class="form-control" formControlName="purchase_year" ngbDatepicker #dp="ngbDatepicker" placeholder="yyyy-mm-dd">
 
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary" (click)="dp.toggle()" type="button">
-              <fa-icon [icon]="calendarIcon"></fa-icon>
-            </button>
-          </div>
+          <button class="btn btn-outline-secondary" (click)="dp.toggle()" type="button">
+            <fa-icon [icon]="calendarIcon"></fa-icon>
+          </button>
         </div>
       </div>
 
 <!--      <input type="text" class="form-control" formControlName="purchase_year">-->
     </div>
 
-    <div class="form-group">
+    <div class="mb-3">
       <label>Comment</label>
       <textarea class="form-control" formControlName="comment"></textarea>
     </div>
 
   </div>
-  <div class="modal-footer">
-    <button type="submit" class="btn btn-primary" ngbAutofocus [disabled]="addEditVehicleForm.invalid">{{editMode? 'Update' : 'Add'}}</button>&nbsp;
+  <div class="modal-footer d-flex justify-content-between">
+    <button type="submit" class="btn btn-primary" autofocus [disabled]="addEditVehicleForm.invalid">{{editMode? 'Update' : 'Add'}}</button>&nbsp;
     <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
   </div>
 </form>

@@ -33,6 +33,9 @@ export class VehiclesComponent implements OnInit {
       }
     });
   }
+  getBgColor(vehicle: VehicleModel) {
+    return  vehicle.retired ? 'bg-warning' : '';
+  }
 
   private getAllVehicles() {
     this.householdService.getAllVehicles()

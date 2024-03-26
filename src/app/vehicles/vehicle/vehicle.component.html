@@ -7,7 +7,10 @@
 
     <div class="card">
       <div class="card-header bg-light d-flex justify-content-between">
-        <span>{{vehicle.make}} {{vehicle.vehicle_model}}</span>
+        <strong>{{vehicle.make}} {{vehicle.vehicle_model}}</strong>
+
+<!--        <button type="button" class="btn btn-warning btn-sm">Retire</button>-->
+
         <div class=" btn-group btn-group-sm">
           <button type="button" class="btn btn-outline-primary" (click)="openEditModal()">
             Edit
@@ -66,9 +69,7 @@
 <ng-template #removeVehicleModal let-modal>
   <div class="modal-header bg-danger text-white">
     <h5 class="modal-title">Remove Vehicle</h5>
-    <button type="button" class="close" (click)="closeRemoveVehicleModal()">
-      <span>&times;</span>
-    </button>
+    <button type="button" class="btn-close" (click)="closeRemoveVehicleModal()"></button>
   </div>
 
   <div class="modal-body">
@@ -79,8 +80,8 @@
 
   </div>
 
-  <div class="modal-footer">
+  <div class="modal-footer d-flex justify-content-between">
     <button type="button" class="btn btn-primary" (click)=removeVehicle()>Retire</button>&nbsp;
-    <button type="button" class="btn btn-secondary" ngbAutofocus (click)="closeRemoveVehicleModal()">Cancel</button>
+    <button type="button" class="btn btn-secondary" autofocus (click)="closeRemoveVehicleModal()">Cancel</button>
   </div>
 </ng-template>

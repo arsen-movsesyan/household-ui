@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HouseholdService} from '../common/household.service';
 import {AccountModel} from '../models/account.model';
 import {TABLE_ITEMS_PER_PAGE} from '../common/constants';
-import {faExternalLinkAlt} from '@fortawesome/free-solid-svg-icons';
+import {faExternalLinkAlt, faSearch} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-accounts',
@@ -52,4 +52,6 @@ export class AccountsComponent implements OnInit {
       this.displayAccounts = [...this.allAccounts];
     }
   }
+
+  protected readonly faSearch = faSearch;
 }

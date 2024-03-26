@@ -1,34 +1,32 @@
 <div class="modal-header">
   <h5 class="modal-title">{{editMode ? 'Edit ' : 'Add New '}} Person</h5>
-  <button type="button" class="close" (click)="closeModal()">
-    <span>&times;</span>
-  </button>
+  <button type="button" class="btn-close" (click)="closeModal()"></button>
 </div>
 
 <form [formGroup]="addPersonForm" (ngSubmit)="submit()">
   <div class="modal-body">
 
-    <div class="form-group">
+    <div class="mb-3">
       <label>First Name *</label>
       <input type="text" class="form-control" formControlName="first_name">
     </div>
 
-    <div class="form-group">
+    <div class="mb-3">
       <label>Last Name *</label>
       <input type="text" class="form-control" formControlName="last_name">
     </div>
 
-    <div class="form-group">
+    <div class="mb-3">
       <label>Email *</label>
       <input type="email" class="form-control" formControlName="email">
     </div>
 
-    <div class="form-group">
+    <div class="mb-3">
       <label>Phone Number *</label>
       <input type="text" class="form-control" formControlName="phone" [textMask]="phoneConfig">
     </div>
 
-    <div class="form-group">
+    <div class="mb-3">
       <label>Social Security Number *</label>
       <input type="text" class="form-control" formControlName="ssn" [textMask]="ssnConfig">
     </div>
@@ -39,16 +37,14 @@
 
         <input type="text" class="form-control" formControlName="dob" ngbDatepicker #dp="ngbDatepicker" placeholder="yyyy-mm-dd">
 
-        <div class="input-group-append">
           <button class="btn btn-outline-secondary" (click)="dp.toggle()" type="button">
             <fa-icon [icon]="calendarIcon"></fa-icon>
           </button>
-        </div>
       </div>
     </div>
 
   </div>
-  <div class="modal-footer">
+  <div class="modal-footer d-flex justify-content-between">
     <button type="submit" class="btn btn-primary" ngbAutofocus [disabled]="addPersonForm.invalid">{{editMode? 'Update' : 'Add'}}</button>&nbsp;
     <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
   </div>

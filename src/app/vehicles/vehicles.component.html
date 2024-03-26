@@ -21,10 +21,11 @@
             <th>Make</th>
             <th>Model</th>
             <th>License Plate</th>
+            <th>Date Purchased</th>
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let vehicle of vehicles" [routerLink]="'/vehicle/' + vehicle.id" class="pointer-link">
+          <tr *ngFor="let vehicle of vehicles" [routerLink]="'/vehicle/' + vehicle.id" class="pointer-link" [bgColor]="getBgColor(vehicle)">
             <td>
               {{vehicle.make}}
             </td>
@@ -33,6 +34,9 @@
             </td>
             <td>
               {{vehicle.license_plate}}
+            </td>
+            <td>
+              {{vehicle.purchase_year|date: 'mediumDate'}}
             </td>
           </tr>
           </tbody>

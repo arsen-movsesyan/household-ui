@@ -1,17 +1,8 @@
-FROM node:18.17.1-alpine
-
-LABEL authors="arsen_movsesyan"
+FROM nginx
 
 
-WORKDIR /app
+COPY dist/frontend /usr/share/nginx/html
 
-COPY package.json ./
+EXPOSE 80
 
-RUN npm install
-
-COPY . .
-
-EXPOSE 4200
-
-
-CMD ["npm", "run", "start"]
+CMD ["nginx", "-g", "daemon off;"]

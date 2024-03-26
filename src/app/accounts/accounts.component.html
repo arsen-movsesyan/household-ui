@@ -15,10 +15,15 @@
 
       <div class="card-body">
 
-        <div class="form-group d-flex form-inline ml-3 justify-content-end">
-          <section>
-            Search: <input class="form-control ml-2" type="text" [(ngModel)]="searchString" id="partSearchId" (keyup)="filter()">
-          </section>
+        <div class="mb-3 d-flex form-inline justify-content-start">
+          <div>
+            <div class="input-group">
+              <input class="form-control" type="text" [(ngModel)]="searchString" id="partSearchId" (keyup)="filter()">
+              <span class="input-group-text">
+                <fa-icon [icon]="faSearch"></fa-icon>
+              </span>
+            </div>
+          </div>
         </div>
 
         <table class="table table-hover table-borderless table-sm">
@@ -52,7 +57,7 @@
 
           <div class="form-group form-inline">
             <label for="itemsPerPageId">Items Per Page</label>
-            <select class="custom-select ml-2" style="width: auto" [(ngModel)]="pageSize" id="itemsPerPageId">
+            <select class="custom-select ms-2" style="width: auto" [(ngModel)]="pageSize" id="itemsPerPageId">
               <option [ngValue]="pageSize.value" *ngFor="let pageSize of tableItemsPerPage">{{pageSize.display}}</option>
             </select>
 
