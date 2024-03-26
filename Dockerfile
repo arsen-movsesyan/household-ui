@@ -1,4 +1,5 @@
-FROM node:18
+FROM node:18.17.1-alpine
+
 LABEL authors="arsen_movsesyan"
 
 
@@ -10,9 +11,7 @@ RUN npm install
 
 COPY . .
 
-RUN npm build
-
 EXPOSE 4200
 
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "start"]
