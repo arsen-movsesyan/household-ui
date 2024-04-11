@@ -13,4 +13,4 @@ export const environment = {
 
 export const serverProto = 'http';
 export const serverHost = 'localhost';
-export const serverPort = '8888';
+export const serverPort = '8088';
