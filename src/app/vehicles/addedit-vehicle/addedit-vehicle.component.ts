@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {VehicleModel} from '../../models/vehicle.model';
 import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
-import {faCalendar} from '@fortawesome/free-regular-svg-icons/faCalendar';
+import {faCalendar} from '@fortawesome/free-regular-svg-icons';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {formatDateToNgbDateStr, getStructFromString} from '../../common/utils';
 

@@ -5,7 +5,7 @@ import {AccountModel} from '../../models/account.model';
 import {RecurringModel} from '../../models/recurring.model';
 import {HouseholdService} from '../../common/household.service';
 import {ConstantsModel} from '../../common/constants';
-import {faCalendar} from '@fortawesome/free-regular-svg-icons/faCalendar';
+import {faCalendar} from '@fortawesome/free-regular-svg-icons';
 
 @Component({
     selector: 'app-make-recurring',

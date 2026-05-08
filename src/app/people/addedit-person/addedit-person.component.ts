@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {PersonModel} from '../../models/person.model';
-import {faCalendar} from '@fortawesome/free-regular-svg-icons/faCalendar';
+import {faCalendar} from '@fortawesome/free-regular-svg-icons';
 import {cleanPhoneSsnMaskedValue, formatDateToNgbDateStr, getStructFromString} from '../../common/utils';
 
 
