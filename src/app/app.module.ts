@@ -8,7 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PeopleComponent } from './people/people.component';
 import { SpinnerComponent } from './common/spinner/spinner.component';
-import { HttpClientModule} from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { EmailDisplayComponent } from './common/email-display/email-display.component';
 import { PhonePipe} from './common/phone.pipe';
 import { PersonComponent } from './people/person/person.component';
@@ -27,8 +27,7 @@ import { BriefComponent } from './common/brief/brief.component';
 import { CopyToClipboardComponent } from './common/copy-to-clipboard/copy-to-clipboard.component';
 import { MakeRecurringComponent } from './accounts/make-recurring/make-recurring.component';
 
-@NgModule({
-    declarations: [
+@NgModule({ declarations: [
         AppComponent,
         MainHeaderComponent,
         PeopleComponent,
@@ -50,16 +49,10 @@ import { MakeRecurringComponent } from './accounts/make-recurring/make-recurring
         CopyToClipboardComponent,
         MakeRecurringComponent,
     ],
-    imports: [
-        BrowserModule,
+    bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,
         NgbModule,
         FormsModule,
         FontAwesomeModule,
-        HttpClientModule,
-        ReactiveFormsModule,
-    ],
-    providers: [],
-    bootstrap: [AppComponent]
-})
+        ReactiveFormsModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }

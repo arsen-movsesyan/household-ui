@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {accountUrl, addressUrl, constantsUrl, createAddressUrl, peopleUrl, statesAPI, vehicleUrl} from './urls';
 import {PersonModel} from '../models/person.model';
 import {VehicleModel} from '../models/vehicle.model';
