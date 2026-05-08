@@ -8,97 +8,83 @@
 <form [formGroup]="recurringForm">
 
   <div class="modal-body">
-    <div class="mt-4" *ngIf="showMainSpinner">
-      <app-spinner message="Getting Info" (dismiss)="showMainSpinner = false" *ngIf="showMainSpinner"></app-spinner>
-    </div>
-    <section *ngIf="!showMainSpinner">
-
-      <div class="row">
-        <div class="col-lg-4">
-
-          <div class="form-group">
-            <label>Frequency *</label>
-            <select class="form-control" formControlName="frequency">
-              <option *ngFor="let frequency of constants.frequencies" [value]="frequency[0]" [selected]="frequency[0]===1">{{frequency[1]}}</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label>Interval</label>
-            <input type="number" class="form-control" min="1" step="1">
-          </div>
-
-          <div class="form-group">
-            <label>
-              <input type="checkbox" formControlName="acknowledge_required">
-              Requires Acknowledgment
-            </label>
-          </div>
-
-          <div class="form-group">
-            <label>Comment</label>
-            <textarea class="form-control" formControlName="comment"></textarea>
-          </div>
-
-        </div>
-
-        <div class="col-lg-4">
-
-          <div class="form-group">
-            <label>Starting Date</label>
-            <div class="input-group">
-
-              <input type="text" class="form-control" ngbDatepicker #sdp="ngbDatepicker" placeholder="yyyy-mm-dd">
-              <div class="input-group-append">
-                <button class="btn btn-outline-secondary" (click)="sdp.toggle()" type="button">
-                  <fa-icon [icon]="calendarIcon"></fa-icon>
-                </button>
-              </div>
-
-            </div>
-
-          </div>
-
-          <div class="form-group">
-            <label>Counts</label>
-            <div class="input-group">
-
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <input type="checkbox">
-                </div>
-
-              </div>
-              <input type="number" min="1" step="1" class="form-control">
-
-            </div>
-
-          </div>
-
-          <div class="form-group">
-            <label>Until</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <input type="checkbox">
-                </div>
-              </div>
-
-              <input type="text" class="form-control" ngbDatepicker #udp="ngbDatepicker" placeholder="yyyy-mm-dd">
-              <div class="input-group-append">
-                <button class="btn btn-outline-secondary" (click)="udp.toggle()" type="button">
-                  <fa-icon [icon]="calendarIcon"></fa-icon>
-                </button>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
+    @if (showMainSpinner) {
+      <div class="mt-4">
+        @if (showMainSpinner) {
+          <app-spinner message="Getting Info" (dismiss)="showMainSpinner = false"></app-spinner>
+        }
       </div>
-
-
-    </section>
+    }
+    @if (!showMainSpinner) {
+      <section>
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="form-group">
+              <label>Frequency *</label>
+              <select class="form-control" formControlName="frequency">
+                @for (frequency of constants.frequencies; track frequency) {
+                  <option [value]="frequency[0]" [selected]="frequency[0]==='1'">{{frequency[1]}}</option>
+                }
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Interval</label>
+              <input type="number" class="form-control" min="1" step="1">
+            </div>
+            <div class="form-group">
+              <label>
+                <input type="checkbox" formControlName="acknowledge_required">
+                Requires Acknowledgment
+              </label>
+            </div>
+            <div class="form-group">
+              <label>Comment</label>
+              <textarea class="form-control" formControlName="comment"></textarea>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="form-group">
+              <label>Starting Date</label>
+              <div class="input-group">
+                <input type="text" class="form-control" ngbDatepicker #sdp="ngbDatepicker" placeholder="yyyy-mm-dd">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" (click)="sdp.toggle()" type="button">
+                    <fa-icon [icon]="calendarIcon"></fa-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Counts</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <input type="checkbox">
+                  </div>
+                </div>
+                <input type="number" min="1" step="1" class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Until</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <input type="checkbox">
+                  </div>
+                </div>
+                <input type="text" class="form-control" ngbDatepicker #udp="ngbDatepicker" placeholder="yyyy-mm-dd">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" (click)="udp.toggle()" type="button">
+                    <fa-icon [icon]="calendarIcon"></fa-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    }
 
   </div>
 

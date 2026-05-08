@@ -1,48 +1,52 @@
 <div class="mt-4">
-  <app-spinner message="Getting People" (dismiss)="showMainSpinner=false" *ngIf="showMainSpinner"></app-spinner>
+  @if (showMainSpinner) {
+    <app-spinner message="Getting People" (dismiss)="showMainSpinner=false"></app-spinner>
+  }
 </div>
 
-<div class="card" *ngIf="!showMainSpinner">
-  <div class="card-header text-white bg-info d-flex justify-content-between">
-    <strong>Addresses</strong>
-    <button type="button" class="btn btn-sm btn-warning" (click)="openAddAddressModal()">
-      Add Address
-    </button>
+@if (!showMainSpinner) {
+  <div class="card">
+    <div class="card-header text-white bg-info d-flex justify-content-between">
+      <strong>Addresses</strong>
+      <button type="button" class="btn btn-sm btn-warning" (click)="openAddAddressModal()">
+        Add Address
+      </button>
+    </div>
+    <div class="card-body">
+      <table class="table table-borderless table-striped">
+        <thead>
+          <tr>
+            <th>Address</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Comment</th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (address of addresses; track address) {
+            <tr>
+              <td>{{address.formattedAddress}}</td>
+              <td>{{address.period_start|date:'mediumDate'}}</td>
+              <td>{{!!address.period_end ? (address.period_end|date:'mediumDate') : 'Present'}}</td>
+              <td>{{address.comment}}</td>
+              <td>
+                <div class="btn-group btn-group-sm">
+                  <button type="button" class="btn btn-sm btn-outline-primary" (click)="openEditAddressModal(address.id)">
+                    <fa-icon [icon]="editIcon"></fa-icon>
+                  </button>
+                  <button type="button" class="btn btn-sm btn-outline-danger" (click)="openDeleteAddressModal(address.id)">
+                    <fa-icon [icon]="trashIcon"></fa-icon>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
   </div>
-
-  <div class="card-body">
-    <table class="table table-borderless table-striped">
-      <thead>
-      <tr>
-        <th>Address</th>
-        <th>From</th>
-        <th>To</th>
-        <th>Comment</th>
-        <th>&nbsp;</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let address of addresses">
-        <td>{{address.formattedAddress}}</td>
-        <td>{{address.period_start|date:'mediumDate'}}</td>
-        <td>{{!!address.period_end ? (address.period_end|date:'mediumDate') : 'Present'}}</td>
-        <td>{{address.comment}}</td>
-        <td>
-          <div class="btn-group btn-group-sm">
-            <button type="button" class="btn btn-sm btn-outline-primary" (click)="openEditAddressModal(address.id)">
-              <fa-icon [icon]="editIcon"></fa-icon>
-            </button>
-            <button type="button" class="btn btn-sm btn-outline-danger" (click)="openDeleteAddressModal(address.id)">
-              <fa-icon [icon]="trashIcon"></fa-icon>
-            </button>
-          </div>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-
-  </div>
-</div>
+}
 
 
 <ng-template #addressDeleteModal let-modal>
@@ -109,38 +113,52 @@
 
       </div>
 
-      <div class="form-group" *ngIf="!addressEditMode">
-        <label>Address *</label>
-        <input type="text" class="form-control" formControlName="address_line1">
-      </div>
+      @if (!addressEditMode) {
+        <div class="form-group">
+          <label>Address *</label>
+          <input type="text" class="form-control" formControlName="address_line1">
+        </div>
+      }
 
-      <div class="form-group" *ngIf="!addressEditMode">
-        <label>Address (continuation)</label>
-        <input type="text" class="form-control" formControlName="address_line2">
-      </div>
+      @if (!addressEditMode) {
+        <div class="form-group">
+          <label>Address (continuation)</label>
+          <input type="text" class="form-control" formControlName="address_line2">
+        </div>
+      }
 
-      <div class="form-group" *ngIf="!addressEditMode">
-        <label>Apartment/Suite</label>
-        <input type="text" class="form-control" formControlName="apt_suite">
-      </div>
+      @if (!addressEditMode) {
+        <div class="form-group">
+          <label>Apartment/Suite</label>
+          <input type="text" class="form-control" formControlName="apt_suite">
+        </div>
+      }
 
-      <div class="form-group" *ngIf="!addressEditMode">
-        <label>City *</label>
-        <input type="text" class="form-control" formControlName="city">
-      </div>
+      @if (!addressEditMode) {
+        <div class="form-group">
+          <label>City *</label>
+          <input type="text" class="form-control" formControlName="city">
+        </div>
+      }
 
-      <div class="form-group" *ngIf="!addressEditMode">
-        <label>State/Province *</label>
-        <select class="form-control" formControlName="state">
-          <option>Select State</option>
-          <option *ngFor="let state of allStates" [value]="state.abbreviation">{{state.name}}</option>
-        </select>
-      </div>
+      @if (!addressEditMode) {
+        <div class="form-group">
+          <label>State/Province *</label>
+          <select class="form-control" formControlName="state">
+            <option>Select State</option>
+            @for (state of allStates; track state) {
+              <option [value]="state.abbreviation">{{state.name}}</option>
+            }
+          </select>
+        </div>
+      }
 
-      <div class="form-group" *ngIf="!addressEditMode">
-        <label>Zip Code *</label>
-        <input type="text" class="form-control" formControlName="zip_code">
-      </div>
+      @if (!addressEditMode) {
+        <div class="form-group">
+          <label>Zip Code *</label>
+          <input type="text" class="form-control" formControlName="zip_code">
+        </div>
+      }
 
       <div class="form-group">
         <label>Comment</label>

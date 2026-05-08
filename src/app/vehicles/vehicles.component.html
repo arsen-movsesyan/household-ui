@@ -1,51 +1,51 @@
 <div class="mt-4">
-  <app-spinner message="Getting Vehicles" (dismiss)="showMainSpinner=false" *ngIf="showMainSpinner"></app-spinner>
+  @if (showMainSpinner) {
+    <app-spinner message="Getting Vehicles" (dismiss)="showMainSpinner=false"></app-spinner>
+  }
 </div>
 
 <div class="row">
   <div class="col-lg-6 offset-lg-3">
-    <div class="card" *ngIf="!showMainSpinner">
-      <div class="card-header bg-warning d-flex justify-content-between">
-        <strong>Vehicles</strong>
-        <button class="btn btn-sm btn-success" (click)="openAddVehicleModal()">
-          Add Vehicle
-        </button>
+    @if (!showMainSpinner) {
+      <div class="card">
+        <div class="card-header bg-warning d-flex justify-content-between">
+          <strong>Vehicles</strong>
+          <button class="btn btn-sm btn-success" (click)="openAddVehicleModal()">
+            Add Vehicle
+          </button>
+        </div>
+        <div class="card-body">
+          <table class="table table-borderless table-hover">
+            <thead>
+              <tr>
+                <th>Make</th>
+                <th>Model</th>
+                <th>License Plate</th>
+                <th>Date Purchased</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (vehicle of vehicles; track vehicle) {
+                <tr [routerLink]="'/vehicle/' + vehicle.id" class="pointer-link" [bgColor]="getBgColor(vehicle)">
+                  <td>
+                    {{vehicle.make}}
+                  </td>
+                  <td>
+                    {{vehicle.vehicle_model}}
+                  </td>
+                  <td>
+                    {{vehicle.license_plate}}
+                  </td>
+                  <td>
+                    {{vehicle.purchase_year|date: 'mediumDate'}}
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
       </div>
-
-      <div class="card-body">
-
-        <table class="table table-borderless table-hover">
-
-          <thead>
-          <tr>
-            <th>Make</th>
-            <th>Model</th>
-            <th>License Plate</th>
-            <th>Date Purchased</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let vehicle of vehicles" [routerLink]="'/vehicle/' + vehicle.id" class="pointer-link" [bgColor]="getBgColor(vehicle)">
-            <td>
-              {{vehicle.make}}
-            </td>
-            <td>
-              {{vehicle.vehicle_model}}
-            </td>
-            <td>
-              {{vehicle.license_plate}}
-            </td>
-            <td>
-              {{vehicle.purchase_year|date: 'mediumDate'}}
-            </td>
-          </tr>
-          </tbody>
-
-        </table>
-
-      </div>
-
-    </div>
+    }
 
   </div>
 </div>

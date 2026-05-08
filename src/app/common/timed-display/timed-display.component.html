@@ -1,9 +1,13 @@
 <div style="width: 90px">
-  <button class="btn btn-warning btn-sm" (click)="display()" *ngIf="!show">
-    Show <fa-icon [icon]="clockIcon"></fa-icon>
-  </button>
+  @if (!show) {
+    <button class="btn btn-warning btn-sm" (click)="display()">
+      Show <fa-icon [icon]="clockIcon"></fa-icon>
+    </button>
+  }
 </div>
 
-<span *ngIf="show" style="color: darkgrey;">
-  <app-copy-to-clipboard [content]="content"></app-copy-to-clipboard>
-</span>
+@if (show) {
+  <span style="color: darkgrey;">
+    <app-copy-to-clipboard [content]="content"></app-copy-to-clipboard>
+  </span>
+}

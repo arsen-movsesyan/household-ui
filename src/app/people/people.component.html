@@ -1,51 +1,50 @@
 <div class="mt-4">
-  <app-spinner message="Getting People" (dismiss)="showMainSpinner=false" *ngIf="showMainSpinner"></app-spinner>
+  @if (showMainSpinner) {
+    <app-spinner message="Getting People" (dismiss)="showMainSpinner=false"></app-spinner>
+  }
 </div>
 
-<div class="card" *ngIf="!showMainSpinner">
-  <div class="card-header text-white bg-success d-flex justify-content-between">
-    <strong>People</strong>
-    <button type="button" class="btn btn-sm btn-warning" (click)="openAddPersonModal()">
-      Add Person
-    </button>
-
+@if (!showMainSpinner) {
+  <div class="card">
+    <div class="card-header text-white bg-success d-flex justify-content-between">
+      <strong>People</strong>
+      <button type="button" class="btn btn-sm btn-warning" (click)="openAddPersonModal()">
+        Add Person
+      </button>
+    </div>
+    <div class="card-body">
+      <table class="table table-borderless table-striped">
+        <thead>
+          <tr>
+            <th>Person</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>D.O.B.</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (person of people; track person) {
+            <tr>
+              <td>
+                <a class="btn btn-link" [routerLink]="'/person/' + person.id">
+                  {{person.first_name}} {{person.last_name}}
+                </a>
+              </td>
+              <td>
+                <a [href]="'mailto:' + person.email">
+                  <app-email-display [email]="person.email"></app-email-display>
+                </a>
+              </td>
+              <td>
+                <a [href]="'tel:' + person.phone">
+                  {{person.phone | phone}}
+                </a>
+              </td>
+              <td>{{person.dob | date: 'mediumDate'}}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
   </div>
-
-  <div class="card-body">
-
-    <table class="table table-borderless table-striped">
-
-      <thead>
-      <tr>
-        <th>Person</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>D.O.B.</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let person of people">
-        <td>
-          <a class="btn btn-link" [routerLink]="'/person/' + person.id">
-            {{person.first_name}} {{person.last_name}}
-          </a>
-        </td>
-        <td>
-          <a [href]="'mailto:' + person.email">
-            <app-email-display [email]="person.email"></app-email-display>
-          </a>
-        </td>
-        <td>
-          <a [href]="'tel:' + person.phone">
-            {{person.phone | phone}}
-          </a>
-        </td>
-        <td>{{person.dob | date: 'mediumDate'}}</td>
-      </tr>
-      </tbody>
-
-    </table>
-
-  </div>
-
-</div>
+}

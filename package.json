@@ -10,21 +10,21 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^20.3.20",
-    "@angular/common": "^20.3.20",
-    "@angular/compiler": "^20.3.20",
-    "@angular/core": "^20.3.20",
-    "@angular/forms": "^20.3.20",
-    "@angular/localize": "^20.3.20",
-    "@angular/platform-browser": "^20.3.20",
-    "@angular/platform-browser-dynamic": "^20.3.20",
-    "@angular/router": "^20.3.20",
-    "@fortawesome/angular-fontawesome": "^1.0.0",
+    "@angular/animations": "^21.2.12",
+    "@angular/common": "^21.2.12",
+    "@angular/compiler": "^21.2.12",
+    "@angular/core": "^21.2.12",
+    "@angular/forms": "^21.2.12",
+    "@angular/localize": "^21.2.12",
+    "@angular/platform-browser": "^21.2.12",
+    "@angular/platform-browser-dynamic": "^21.2.12",
+    "@angular/router": "^21.2.12",
+    "@fortawesome/angular-fontawesome": "^4.0.0",
     "@fortawesome/fontawesome-svg-core": "^7.2.0",
     "@fortawesome/free-brands-svg-icons": "^7.2.0",
     "@fortawesome/free-regular-svg-icons": "^7.2.0",
     "@fortawesome/free-solid-svg-icons": "^7.2.0",
-    "@ng-bootstrap/ng-bootstrap": "^18.0.0",
+    "@ng-bootstrap/ng-bootstrap": "^20.0.0",
     "@popperjs/core": "^2.10.2",
     "bootstrap": "^5.2.0",
     "date-fns": "^3.6.0",
@@ -33,9 +33,9 @@
     "zone.js": "~0.15.1"
   },
   "devDependencies": {
-    "@angular/build": "^20.3.25",
-    "@angular/cli": "^20.3.25",
-    "@angular/compiler-cli": "^20.3.20",
+    "@angular/build": "^21.2.10",
+    "@angular/cli": "^21.2.10",
+    "@angular/compiler-cli": "^21.2.12",
     "@types/jasmine": "^6.0.0",
     "@types/node": "^25.6.2",
     "jasmine-core": "^6.2.0",
@@ -45,6 +45,6 @@
     "karma-jasmine": "^5.1.0",
     "karma-jasmine-html-reporter": "^2.2.0",
     "ts-node": "^10.9.2",
-    "typescript": "~5.8.0"
+    "typescript": "~5.9.3"
   }
 }
