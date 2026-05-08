@@ -5,9 +5,10 @@ import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddEditPersonComponent} from './addedit-person/addedit-person.component';
 
 @Component({
-  selector: 'app-people',
-  templateUrl: './people.component.html',
-  styleUrls: ['./people.component.css']
+    selector: 'app-people',
+    templateUrl: './people.component.html',
+    styleUrls: ['./people.component.css'],
+    standalone: false
 })
 export class PeopleComponent implements OnInit {
   addPersonActiveModal: NgbActiveModal;

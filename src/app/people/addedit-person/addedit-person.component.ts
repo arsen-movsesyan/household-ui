@@ -7,9 +7,10 @@ import {cleanPhoneSsnMaskedValue, formatDateToNgbDateStr, getStructFromString} f
 
 
 @Component({
-  selector: 'app-addedit-person',
-  templateUrl: './addedit-person.component.html',
-  styleUrls: ['./addedit-person.component.css']
+    selector: 'app-addedit-person',
+    templateUrl: './addedit-person.component.html',
+    styleUrls: ['./addedit-person.component.css'],
+    standalone: false
 })
 export class AddEditPersonComponent implements OnInit {
   @Input() person: PersonModel;

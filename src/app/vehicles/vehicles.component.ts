@@ -5,9 +5,10 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddEditVehicleComponent} from './addedit-vehicle/addedit-vehicle.component';
 
 @Component({
-  selector: 'app-vehicles',
-  templateUrl: './vehicles.component.html',
-  styleUrls: ['./vehicles.component.css']
+    selector: 'app-vehicles',
+    templateUrl: './vehicles.component.html',
+    styleUrls: ['./vehicles.component.css'],
+    standalone: false
 })
 export class VehiclesComponent implements OnInit {
   vehicles: VehicleModel[];

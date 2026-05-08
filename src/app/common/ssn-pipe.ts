@@ -1,7 +1,8 @@
 import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
-  name: 'ssn'
+    name: 'ssn',
+    standalone: false
 })
 export class SsnPipe implements PipeTransform {
   transform(value: any, ...args): any {

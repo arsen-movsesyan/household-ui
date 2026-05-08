@@ -7,9 +7,10 @@ import {VehicleModel} from '../../models/vehicle.model';
 import {AddEditVehicleComponent} from '../addedit-vehicle/addedit-vehicle.component';
 
 @Component({
-  selector: 'app-vehicle',
-  templateUrl: './vehicle.component.html',
-  styleUrls: ['./vehicle.component.css']
+    selector: 'app-vehicle',
+    templateUrl: './vehicle.component.html',
+    styleUrls: ['./vehicle.component.css'],
+    standalone: false
 })
 export class VehicleComponent implements OnInit {
   @ViewChild('removeVehicleModal') removeVehicleModal: NgbModalRef;

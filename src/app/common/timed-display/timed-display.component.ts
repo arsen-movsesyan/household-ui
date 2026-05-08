@@ -2,9 +2,10 @@ import {Component, Input, OnInit} from '@angular/core';
 import {faClock} from '@fortawesome/free-regular-svg-icons';
 
 @Component({
-  selector: 'app-timed-display',
-  templateUrl: './timed-display.component.html',
-  styleUrls: ['./timed-display.component.css']
+    selector: 'app-timed-display',
+    templateUrl: './timed-display.component.html',
+    styleUrls: ['./timed-display.component.css'],
+    standalone: false
 })
 export class TimedDisplayComponent implements OnInit {
   @Input() content: string;

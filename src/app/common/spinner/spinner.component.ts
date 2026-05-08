@@ -2,9 +2,10 @@ import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angula
 import {ContextColor, DEFAULT_SPINNER_TIMEOUT} from '../constants';
 
 @Component({
-  selector: 'app-spinner',
-  templateUrl: './spinner.component.html',
-  styleUrls: ['./spinner.component.css']
+    selector: 'app-spinner',
+    templateUrl: './spinner.component.html',
+    styleUrls: ['./spinner.component.css'],
+    standalone: false
 })
 export class SpinnerComponent implements OnInit, OnDestroy {
   @Input() message: string;

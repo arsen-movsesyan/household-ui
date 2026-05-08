@@ -8,9 +8,10 @@ import {faExternalLinkAlt} from '@fortawesome/free-solid-svg-icons';
 import {MakeRecurringComponent} from '../make-recurring/make-recurring.component';
 
 @Component({
-  selector: 'app-account',
-  templateUrl: './account.component.html',
-  styleUrls: ['./account.component.css']
+    selector: 'app-account',
+    templateUrl: './account.component.html',
+    styleUrls: ['./account.component.css'],
+    standalone: false
 })
 export class AccountComponent implements OnInit {
   @ViewChild('removeAccountModal') removeAccountModal: NgbModalRef;

@@ -5,9 +5,10 @@ import {TABLE_ITEMS_PER_PAGE} from '../common/constants';
 import {faExternalLinkAlt, faSearch} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-accounts',
-  templateUrl: './accounts.component.html',
-  styleUrls: ['./accounts.component.css']
+    selector: 'app-accounts',
+    templateUrl: './accounts.component.html',
+    styleUrls: ['./accounts.component.css'],
+    standalone: false
 })
 export class AccountsComponent implements OnInit {
   showMainSpinner = true;

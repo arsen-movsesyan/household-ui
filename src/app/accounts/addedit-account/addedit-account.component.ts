@@ -9,9 +9,10 @@ import {urlRegEx} from '../../common/constants';
 import {AccountExtraModel} from '../../models/account-extra.model';
 
 @Component({
-  selector: 'app-addedit-account',
-  templateUrl: './addedit-account.component.html',
-  styleUrls: ['./addedit-account.component.css']
+    selector: 'app-addedit-account',
+    templateUrl: './addedit-account.component.html',
+    styleUrls: ['./addedit-account.component.css'],
+    standalone: false
 })
 export class AddEditAccountComponent implements OnInit {
   account: AccountModel;

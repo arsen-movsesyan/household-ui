@@ -7,9 +7,10 @@ import {Location} from '@angular/common';
 import {AddEditPersonComponent} from '../addedit-person/addedit-person.component';
 
 @Component({
-  selector: 'app-person',
-  templateUrl: './person.component.html',
-  styleUrls: ['./person.component.css']
+    selector: 'app-person',
+    templateUrl: './person.component.html',
+    styleUrls: ['./person.component.css'],
+    standalone: false
 })
 export class PersonComponent implements OnInit {
   @ViewChild('removePersonModal') removePersonModal: NgbModalRef;

@@ -14,9 +14,10 @@ import {CreateAddressModel} from '../models/create-address.model';
 import {formatAddress, formatDateToNgbDateStr, getStructFromString} from '../common/utils';
 
 @Component({
-  selector: 'app-addresses',
-  templateUrl: './addresses.component.html',
-  styleUrls: ['./addresses.component.css']
+    selector: 'app-addresses',
+    templateUrl: './addresses.component.html',
+    styleUrls: ['./addresses.component.css'],
+    standalone: false
 })
 export class AddressesComponent implements OnInit {
   @ViewChild('addressAddEditModal', {static: false}) addressAddEditModal: NgbModalRef;

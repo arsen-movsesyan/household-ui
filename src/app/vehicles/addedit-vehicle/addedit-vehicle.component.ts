@@ -6,9 +6,10 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {formatDateToNgbDateStr, getStructFromString} from '../../common/utils';
 
 @Component({
-  selector: 'app-addedit-vehicle',
-  templateUrl: './addedit-vehicle.component.html',
-  styleUrls: ['./addedit-vehicle.component.css']
+    selector: 'app-addedit-vehicle',
+    templateUrl: './addedit-vehicle.component.html',
+    styleUrls: ['./addedit-vehicle.component.css'],
+    standalone: false
 })
 export class AddEditVehicleComponent implements OnInit {
   @Input() vehicle: VehicleModel;

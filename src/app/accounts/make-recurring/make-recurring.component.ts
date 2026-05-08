@@ -8,9 +8,10 @@ import {ConstantsModel} from '../../common/constants';
 import {faCalendar} from '@fortawesome/free-regular-svg-icons/faCalendar';
 
 @Component({
-  selector: 'app-make-recurring',
-  templateUrl: './make-recurring.component.html',
-  styleUrls: ['./make-recurring.component.css']
+    selector: 'app-make-recurring',
+    templateUrl: './make-recurring.component.html',
+    styleUrls: ['./make-recurring.component.css'],
+    standalone: false
 })
 export class MakeRecurringComponent implements OnInit {
   @Input() account: AccountModel;

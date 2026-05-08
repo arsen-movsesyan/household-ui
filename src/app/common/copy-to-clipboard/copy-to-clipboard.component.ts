@@ -2,9 +2,10 @@ import {Component, Input, OnInit} from '@angular/core';
 import {faClipboard} from '@fortawesome/free-regular-svg-icons';
 
 @Component({
-  selector: 'app-copy-to-clipboard',
-  templateUrl: './copy-to-clipboard.component.html',
-  styleUrls: ['./copy-to-clipboard.component.css']
+    selector: 'app-copy-to-clipboard',
+    templateUrl: './copy-to-clipboard.component.html',
+    styleUrls: ['./copy-to-clipboard.component.css'],
+    standalone: false
 })
 export class CopyToClipboardComponent implements OnInit {
   @Input() content: string;
