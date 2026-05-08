@@ -16,7 +16,6 @@ import { VehiclesComponent } from './vehicles/vehicles.component';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AddressesComponent } from './addresses/addresses.component';
 import { AddEditPersonComponent } from './people/addedit-person/addedit-person.component';
-import {TextMaskModule} from 'angular2-text-mask';
 import { VehicleComponent } from './vehicles/vehicle/vehicle.component';
 import { AddEditVehicleComponent } from './vehicles/addedit-vehicle/addedit-vehicle.component';
 import { AccountsComponent } from './accounts/accounts.component';
@@ -59,7 +58,6 @@ import { MakeRecurringComponent } from './accounts/make-recurring/make-recurring
         FontAwesomeModule,
         HttpClientModule,
         ReactiveFormsModule,
-        TextMaskModule
     ],
     providers: [],
     bootstrap: [AppComponent]

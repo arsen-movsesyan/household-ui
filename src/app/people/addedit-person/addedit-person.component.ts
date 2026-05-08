@@ -15,24 +15,10 @@ export class AddEditPersonComponent implements OnInit {
   @Input() person: PersonModel;
   addPersonForm: UntypedFormGroup;
   calendarIcon = faCalendar;
-  phoneMask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
-  ssnMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
-  phoneConfig: any;
-  ssnConfig: any;
   constructor(private activeModal: NgbActiveModal) { }
 
   ngOnInit(): void {
     this.initPersonForm();
-    this.phoneConfig = {
-      mask: this.phoneMask,
-      guide: false,
-      keepCharPositions: true
-    };
-    this.ssnConfig = {
-      mask: this.ssnMask,
-      guide: false,
-      keepCharPositions: true
-    };
   }
 
   get editMode() {
